@@ -294,7 +294,6 @@ export default defineComponent({
     return {
       showSmall: false,
       windowWidth: 0,
-      // will change depending on final route placement
       email: process.env.VUE_APP_EMAIL,
       linkedin: process.env.VUE_APP_LINKEDIN,
       github: process.env.VUE_APP_GITHUB,
