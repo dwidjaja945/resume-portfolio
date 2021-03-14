@@ -15,7 +15,7 @@
 
 body {
     margin: 0;
-    padding: 10px 0;
+    padding: 10px 0 0;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
