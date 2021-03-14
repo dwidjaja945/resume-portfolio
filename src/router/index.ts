@@ -22,8 +22,8 @@ const routes: Array<RouteRecordRaw> = [
     component: Resume,
   },
   {
-    path: '/_resume',
-    name: '_resume',
+    path: '/printable-resume',
+    name: 'printable-resume',
     component: Resume,
   },
 ];

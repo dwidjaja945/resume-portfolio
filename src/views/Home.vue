@@ -1,76 +1,88 @@
 <template>
-  <header>
-    <h1>Hi, I&apos;m Dylan Widjaja</h1>
-  </header>
-  <main>
-    <section class="left">
-      <div class="profile-image">
-        <img class="image" :src="profileImg" alt="Profile photo" />
-      </div>
-      <div>
-        <p>I'm a Software Engineer with strong skills in UI Engineering.</p>
-        <p>
-          I primarily specialize in <b>React</b>, <b>Typescript</b>, and <b>Redux</b>, but
-          I am always open to learn new technology stacks.
-          Even this current site is built in <b>Vue</b>!
-        </p>
-        <p>
-          Although I am primarily a UI engineer, I definitely do want to expand
-          my skillset to something more than just UI
-        </p>
-      </div>
-    </section>
+  <Navigation>
+    <header>
+      <h1>Hi, I&apos;m Dylan Widjaja</h1>
+    </header>
+    <main>
+      <section class="left">
+        <div class="profile-image">
+          <img class="image" :src="profileImg" alt="Profile photo" />
+        </div>
+        <div>
+          <p>I'm a Software Engineer with strong skills in UI Engineering.</p>
+          <p>
+            I primarily specialize in <b>React</b>, <b>Typescript</b>, and <b>Redux</b>, but
+            I am always open to learn new technology stacks.
+            Even this current site is built in <b>Vue</b>!
+          </p>
+          <p>
+            Although I am primarily a UI engineer, I definitely do want to expand
+            my skillset to something more than just UI
+          </p>
+        </div>
+      </section>
 
-    <section class="right">
-      <div>
-        <p>
-          Feel free to look at my resume
-          <router-link to="/resume" target="_blank" rel="noopener noreferrer">here</router-link>,
-          but here is a small blurb of my background:
-        </p>
-        <p>
-          I received my B.S. in Kinesiology - Exercise Science
-          at California State University, Long Beach, hoping to
-          become a Physical Therapist.
-          In my last semester, I made a last minute decision to not pursue it anymore.
-          So I worked for about a year at a Medical Device company as a Regulatory
-          Affairs Analyst. While working there, I had some friends convince me to
-          consider going into software, so I started studying.
-        </p>
-        <p>
-          After that job, I attended <b>LearningFuze</b>, an accelerated coding bootcamp.
-          Shortly finishing the bootcamp, I was offered a roll at a Tax Automation
-          Software company called <b>SurePrep</b>. There is where I solidifed myself as a
-          Software Engineer.
-        </p>
-        <p>
-          At <b>SurePrep</b>, I worked on the UI for <b>TaxCaddy</b> - an interface that allows
-          CPAs and Consumers to communicate and transfer documents. Essentially, a tool that helps
-          CPAs and Consumers do taxes. Since the API was housed off-shore, I gained
-          and immense knowledge of <b>React</b> and <b>Web</b> practices as well as
-          <b>Agile Methedologies</b> and cross-team workflows.
-        </p>
-        <p>
-          After a little over two years at <b>SurePrep</b>, I changed jobs
-          and received an offer for <b>Amazon</b> and <b>Facebook</b>.
-          Between the two, I decided to go to <b>Facebook</b>, where I work now.
-        </p>
-      </div>
-      <div class="images">
-        <img :src="learningFuzeImg" alt="learning-fuze image">
-        <img :src="sureprepImg" alt="sureprep image">
-      </div>
-    </section>
-  </main>
+      <section class="right">
+        <div>
+          <p>
+            Feel free to look at my resume
+            <router-link to="/resume" target="_blank" rel="noopener noreferrer">here</router-link>
+            (<router-link
+              to="/printable-resume"
+              target="_blank"
+              rel="noopener noreferrer"
+            >printable version</router-link>),
+            but here is a small blurb of my background:
+          </p>
+          <p>
+            I received my B.S. in Kinesiology - Exercise Science
+            at California State University, Long Beach, hoping to
+            become a Physical Therapist.
+            In my last semester, I made a last minute decision to not pursue it anymore.
+            So I worked for about a year at a Medical Device company as a Regulatory
+            Affairs Analyst. While working there, I had some friends convince me to
+            consider going into software, so I started studying.
+          </p>
+          <p>
+            After that job, I attended <b>LearningFuze</b>, an accelerated coding bootcamp.
+            Shortly finishing the bootcamp, I was offered a roll at a Tax Automation
+            Software company called <b>SurePrep</b>. There is where I solidifed myself as a
+            Software Engineer.
+          </p>
+          <p>
+            At <b>SurePrep</b>, I worked on the UI for <b>TaxCaddy</b> - an interface that allows
+            CPAs and Consumers to communicate and transfer documents. Essentially, a tool that helps
+            CPAs and Consumers do taxes. Since the API was housed off-shore, I gained
+            and immense knowledge of <b>React</b> and <b>Web</b> practices as well as
+            <b>Agile Methedologies</b> and cross-team workflows.
+          </p>
+          <p>
+            After a little over two years at <b>SurePrep</b>, I changed jobs
+            and received an offer for <b>Amazon</b> and <b>Facebook</b>.
+            Between the two, I decided to go to <b>Facebook</b>, where I work now.
+          </p>
+        </div>
+        <div class="images">
+          <img :src="learningFuzeImg" alt="learning-fuze image">
+          <img :src="sureprepImg" alt="sureprep image">
+        </div>
+      </section>
+    </main>
+  </Navigation>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Navigation from '@/components/Navigation.vue';
 import Profile from '@/assets/images/profile.jpg';
 import LFZ from '@/assets/images/learning-fuze.png';
 import SurePrep from '@/assets/images/sureprep.jpeg';
 
 export default defineComponent({
+  name: 'Home',
+  components: {
+    Navigation,
+  },
   data() {
     return {
       profileImg: Profile,
