@@ -169,4 +169,26 @@ img {
   }
 }
 
+@media screen and (max-width: 500px) {
+  $imgSize: 75px;
+  main {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .profile-image {
+    align-items: flex-start;
+    img {
+      height: $imgSize;
+      width: $imgSize;
+    }
+  }
+
+  .images {
+    img {
+      width: $imgSize;
+      height: $imgSize;
+    }
+  }
+}
+
 </style>
