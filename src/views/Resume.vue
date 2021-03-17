@@ -1,6 +1,8 @@
 <template>
   <Navigation :show="isHome">
-    <div :class="{resume: !isHome}">
+    <div
+    class="root"
+    :class="{resume: !isHome}">
       <header class="header">
         <h1>
           Dylan Widjaja
@@ -323,6 +325,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+.root {
+  margin-bottom: 60px;
+}
+
 p {
   padding: 0;
   margin: 0;
