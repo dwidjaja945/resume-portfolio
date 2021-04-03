@@ -109,7 +109,7 @@ header {
 main {
   transition: padding 0.2s linear;
   padding: 20px 25% 200px;
-  background: linear-gradient(-45deg, var(--secondary), white);
+  background: var(--gradientBackground);
 }
 section {
   text-align: left;

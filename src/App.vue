@@ -12,12 +12,14 @@ export default defineComponent({
 <style lang="scss">
 :root {
     --primary: #034353;
+    --primaryDark:#02333f;
+    --primaryLight: #125f72;
     --secondary: #559c96;
+    --gradientBackground: linear-gradient(-45deg, var(--secondary), white);
 }
 
 body {
     margin: 0;
-    padding: 10px 0 0;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
