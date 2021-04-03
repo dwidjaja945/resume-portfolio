@@ -1,9 +1,7 @@
 import nodemailer from 'nodemailer';
 
-type EventType = 'contact' | 'bugReport';
-
 interface MailerBody {
-  type: EventType;
+  type: 'contact' | 'bugReport';
   name: string;
   email: string;
   message: string;
