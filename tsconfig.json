@@ -32,7 +32,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/components/toolkit/fetchAdapter"
+    "src/components/toolkit/fetchAdapter",
+    "/functions-src/*.ts"
   ],
   "exclude": [
     "node_modules"
