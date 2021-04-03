@@ -1,8 +1,9 @@
 <template>
   <div id="nav" v-show="show">
     <router-link :to="Paths.HOME">Home</router-link> |
-    <router-link :to="Paths.RESUME">Resume</router-link> |
-    <router-link :to="Paths.CONTACT">Contact</router-link>
+    <router-link :to="Paths.RESUME">Resume</router-link>
+    <!-- | -->
+    <!-- <router-link :to="Paths.CONTACT">Contact</router-link> -->
   </div>
   <slot />
 </template>
