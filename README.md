@@ -1,24 +1,13 @@
-# Portfolio
+# Hi, I'm Dylan Widjaja
 
-## Project setup
-```
-npm install
-```
+## Thanks for visiting my personal site.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This repo houses my personal site where you can read a little about myself, contact me, and even report bugs on my publicly available applications.
+It's still currently a work in progress, but I'm adding to it as I find the time.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+If you'd like to contact me, please do so either via github, or you can send a message directly to me via my site [here](https://dylanwidjaja.com/contact).
 
-### Lints and fixes files
-```
-npm run lint
-```
+I'm happy to answer questions or help in any way that I can!
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Dylan Widjaja
