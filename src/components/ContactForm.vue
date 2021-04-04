@@ -27,7 +27,9 @@
       />
       <p class="errorText" v-show="messageHasError">Please enter a message</p>
     </div>
-    <button type="button" @click="sendMessage">SEND</button>
+    <button type="button" :disabled="isMessageSending" @click="sendMessage">
+      {{isMessageSending ? 'SENDING...' : 'SEND'}}
+    </button>
     <h3 v-show="isSuccessfulSend">
       Message sent! Redirecting back to Home in {{rerouteCountdown}}...
     </h3>
@@ -51,6 +53,7 @@ interface Data {
   nameHasError: boolean;
   emailHasError: boolean;
   messageHasError: boolean;
+  isMessageSending: boolean;
   sendAttempted: boolean;
   isSuccessfulSend: boolean;
   errorMessage: string;
@@ -58,6 +61,8 @@ interface Data {
   rerouteInterval?: number;
   rerouteCountdown: number;
 }
+
+const COUNTDOWN = 3;
 
 export default defineComponent({
   name: 'ContactForm',
@@ -89,12 +94,13 @@ export default defineComponent({
       nameHasError: false,
       emailHasError: false,
       messageHasError: false,
+      isMessageSending: false,
       sendAttempted: false,
       isSuccessfulSend: false,
       errorMessage: '',
       rerouteID: undefined,
       rerouteInterval: undefined,
-      rerouteCountdown: 3,
+      rerouteCountdown: COUNTDOWN,
     };
   },
   beforeUnmount() {
@@ -116,8 +122,10 @@ export default defineComponent({
       return (isFullNameValid && isEmailValid && isMessageValid);
     },
     sendMessage() {
+      if (this.isMessageSending) return;
       this.isSuccessfulSend = false;
       this.errorMessage = '';
+      this.isMessageSending = true;
       if (this.checkForValidMessage()) {
         const data = {
           type: this.contactType,
@@ -134,13 +142,14 @@ export default defineComponent({
           body: JSON.stringify(data),
         })
           .then((): void => {
+            this.isMessageSending = false;
             this.fullName = '';
             this.email = '';
             this.message = '';
             this.isSuccessfulSend = true;
             this.rerouteID = setTimeout(() => {
               this.$router.push(Paths.HOME);
-            }, 3000);
+            }, COUNTDOWN * 1000);
             this.rerouteInterval = setInterval(() => {
               this.rerouteCountdown -= 1;
             }, 1000);
@@ -148,6 +157,8 @@ export default defineComponent({
           .catch((): void => {
             this.errorMessage = 'Sorry, we were unable to send your message. Please try again.';
           });
+      } else {
+        this.isMessageSending = false;
       }
       this.sendAttempted = true;
     },
@@ -191,11 +202,16 @@ export default defineComponent({
     color: white;
     font-weight: bold;
     transition: background-color 0.2s ease;
-    &:hover {
+    cursor: pointer;
+    &:hover:not(:disabled) {
       background-color: var(--primaryDark);
     }
     &:active {
       background-color: var(--primaryLight);
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 

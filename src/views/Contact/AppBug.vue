@@ -36,6 +36,6 @@ h2 {
   color: var(--secondary);
 }
 .root {
-  height: 100vh;
+  height: 80vh;
 }
 </style>
