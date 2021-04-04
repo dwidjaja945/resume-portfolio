@@ -41,6 +41,9 @@
         <h3 v-show="isSuccessfulSend">
           Message sent! Redirecting back to Home in {{rerouteCountdown}}...
         </h3>
+        <h3 v-show="Boolean(errorMessage)">
+          {{errorMessage}}
+        </h3>
       </div>
     </Navigation>
   </main>
@@ -63,6 +66,7 @@ interface Data {
   messageHasError: boolean;
   sendAttempted: boolean;
   isSuccessfulSend: boolean;
+  errorMessage: string;
   rerouteID?: number;
   rerouteInterval?: number;
   rerouteCountdown: number;
@@ -81,6 +85,7 @@ export default defineComponent({
       messageHasError: false,
       sendAttempted: false,
       isSuccessfulSend: false,
+      errorMessage: '',
       rerouteID: undefined,
       rerouteInterval: undefined,
       rerouteCountdown: 3,
@@ -106,6 +111,7 @@ export default defineComponent({
     },
     sendMessage() {
       this.isSuccessfulSend = false;
+      this.errorMessage = '';
       if (this.checkForValidMessage()) {
         const data = {
           type: 'contact',
@@ -120,9 +126,7 @@ export default defineComponent({
           },
           body: JSON.stringify(data),
         })
-          .then(resp => {
-            console.log(resp);
-            debugger;
+          .then((): void => {
             this.fullName = '';
             this.email = '';
             this.message = '';
@@ -134,9 +138,8 @@ export default defineComponent({
               this.rerouteCountdown -= 1;
             }, 1000);
           })
-          .catch(error => {
-            console.log('error: ', error);
-            debugger;
+          .catch((): void => {
+            this.errorMessage = 'Sorry, we were unable to send your message. Please try again.';
           });
         }
       this.sendAttempted = true;
