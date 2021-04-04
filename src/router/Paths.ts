@@ -7,3 +7,6 @@ export enum Paths {
   REPORT_BUG = '/contact/report-bug',
   APPLICATION_BUG = '/contact/report-bug/:appName'
 }
+
+export const generateDynamicPath = (basePath: keyof typeof Paths, route: string): string =>
+  `${basePath}/${route}`;

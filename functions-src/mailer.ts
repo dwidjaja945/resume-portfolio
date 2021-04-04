@@ -5,6 +5,7 @@ interface MailerBody {
   name: string;
   email: string;
   message: string;
+  appName?: string;
 }
 
 const getContactTemplate = (body: MailerBody): string => `
@@ -23,13 +24,30 @@ const getContactTemplate = (body: MailerBody): string => `
   </div>
 `;
 
+const getBugReportTemplate = (body: MailerBody): string => `
+  <div>
+    <h1>Sender Info</h1>
+    <ul>
+      <li>
+        Sender Name: ${body.name || 'N/A'}
+      </li>
+      <li>
+        Sender Email: ${body.email || 'N/A'}
+      </li>
+    </ul>
+    <h2>Affected Application: ${body.appName}</h2>
+    <h2>Message:</h2>
+    <p>${body.message}</p>
+  </div>
+`;
+
 const getTemplate = (body: MailerBody): string => {
   const {
     type,
   } = body;
   switch (type) {
   case 'bugReport':
-    return '';
+    return getBugReportTemplate(body);
   case 'contact':
   default:
     return getContactTemplate(body);

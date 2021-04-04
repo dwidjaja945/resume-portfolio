@@ -19,22 +19,29 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: Paths.RESUME,
     name: 'resume',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Resume.vue'),
+    component: () => import(/* webpackChunkName: "resume" */ '../views/Resume.vue'),
   },
   {
     path: Paths.PRINTABLE_RESUME,
     name: 'printable-resume',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Resume.vue'),
+    component: () => import(/* webpackChunkName: "printable-resume" */ '../views/Resume.vue'),
   },
   {
     path: Paths.CONTACT,
     name: 'contact',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Contact/index.vue'),
+    component: () => import(/* webpackChunkName: "contact" */ '../views/Contact/index.vue'),
   },
   {
     path: Paths.REPORT_BUG,
     name: 'report-bug',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Contact/ReportBug.vue'),
+    component: () => import(/* webpackChunkName: "report-bug" */ '../views/Contact/ReportBug.vue'),
+    children: [
+      {
+        path: Paths.APPLICATION_BUG,
+        name: 'application-bug',
+        component: () => import(/* webpackChunkName: "application-bug" */ '../views/Contact/AppBug.vue'),
+      },
+    ],
   },
 ];
 
