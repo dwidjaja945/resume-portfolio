@@ -18,6 +18,7 @@ module.exports = {
     'no-extra-semi': 'off',
     'indent': ['warn', 2],
     'no-useless-escape': 'warn',
-    'implicit-arrow-linebreak': 'off'
+    'implicit-arrow-linebreak': 'off',
+    'arrow-parens': 'off'
   },
 };

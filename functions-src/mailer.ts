@@ -45,22 +45,22 @@ export function handler(event, context, callback) {
     secure: true,
     auth: {
       type: 'OAuth2',
-      clientId: process.env.VUE_CLIENT_ID,
-      clientSecret: process.env.VUE_CLIENT_SECRET,
+      clientId: process.env.VUE_APP_CLIENT_ID,
+      clientSecret: process.env.VUE_APP_CLIENT_SECRET,
     },
   });
   const body: MailerBody = JSON.parse(event.body);
   const html = getTemplate(body);
   const mailOptions = {
     from: body.email,
-    to: process.env.VUE_EMAIL_TO,
+    to: process.env.VUE_APP_EMAIL_TO,
     replyTo: body.email,
     subject: `New Website Message from ${body.name}`,
     text: null,
     html,
     auth: {
       user: 'dylanwidjajaserver@gmail.com',
-      refreshToken: process.env.VUE_REFRESH_TOKEN,
+      refreshToken: process.env.VUE_APP_REFRESH_TOKEN,
     },
   };
 
