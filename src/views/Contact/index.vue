@@ -119,18 +119,26 @@ export default defineComponent({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
-        });
-        this.fullName = '';
-        this.email = '';
-        this.message = '';
-        this.isSuccessfulSend = true;
-        this.rerouteID = setTimeout(() => {
-          this.$router.push(Paths.HOME);
-        }, 3000);
-        this.rerouteInterval = setInterval(() => {
-          this.rerouteCountdown -= 1;
-        }, 1000);
-      }
+        })
+          .then(resp => {
+            console.log(resp);
+            debugger;
+            this.fullName = '';
+            this.email = '';
+            this.message = '';
+            this.isSuccessfulSend = true;
+            this.rerouteID = setTimeout(() => {
+              this.$router.push(Paths.HOME);
+            }, 3000);
+            this.rerouteInterval = setInterval(() => {
+              this.rerouteCountdown -= 1;
+            }, 1000);
+          })
+          .catch(error => {
+            console.log('error: ', error);
+            debugger;
+          });
+        }
       this.sendAttempted = true;
     },
   },
