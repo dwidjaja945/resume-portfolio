@@ -181,8 +181,6 @@ export default defineComponent({
     flex: 1;
     border-radius: 6px;
     padding: 1rem;
-    margin: auto;
-    width: 100%;
     border: 1px solid black;
   }
 
@@ -228,6 +226,7 @@ export default defineComponent({
   flex-direction: column;
   margin-bottom: 1rem;
   width: 50%;
+  transition: width 0.2s ease;
 }
 
 @media screen and (max-width: 760px) {
