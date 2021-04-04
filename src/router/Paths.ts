@@ -3,9 +3,11 @@ export enum Paths {
   ABOUT = '/about',
   RESUME = '/resume',
   PRINTABLE_RESUME = '/printable-resume',
+  // === CONTACT start ===
   CONTACT = '/contact',
   REPORT_BUG = '/contact/report-bug',
   APPLICATION_BUG = '/contact/report-bug/:appName'
+  // === CONTACT end ===
 }
 
 export const generateDynamicPath = (basePath: keyof typeof Paths, route: string): string =>
