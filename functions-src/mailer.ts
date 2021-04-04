@@ -1,5 +1,3 @@
-import nodemailer from 'nodemailer';
-
 type EventType = 'contact' | 'bugReport';
 
 interface MailerBody {
@@ -38,7 +36,9 @@ const getTemplate = (body: MailerBody): string => {
   };
 };
 
-export function handler(event, context, callback) {
+export const handler = (event, context, callback) => {
+  // eslint-disable-next-line
+  const nodemailer = require('nodemailer');
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -78,4 +78,4 @@ export function handler(event, context, callback) {
       });
     }
   });
-}
+};

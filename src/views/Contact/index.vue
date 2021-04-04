@@ -41,6 +41,9 @@
         <h3 v-show="isSuccessfulSend">
           Message sent! Redirecting back to Home in {{rerouteCountdown}}...
         </h3>
+        <h3 v-show="Boolean(errorMessage)">
+          {{errorMessage}}
+        </h3>
       </div>
     </Navigation>
   </main>
@@ -63,6 +66,7 @@ interface Data {
   messageHasError: boolean;
   sendAttempted: boolean;
   isSuccessfulSend: boolean;
+  errorMessage: string;
   rerouteID?: number;
   rerouteInterval?: number;
   rerouteCountdown: number;
@@ -81,6 +85,7 @@ export default defineComponent({
       messageHasError: false,
       sendAttempted: false,
       isSuccessfulSend: false,
+      errorMessage: '',
       rerouteID: undefined,
       rerouteInterval: undefined,
       rerouteCountdown: 3,
@@ -106,6 +111,7 @@ export default defineComponent({
     },
     sendMessage() {
       this.isSuccessfulSend = false;
+      this.errorMessage = '';
       if (this.checkForValidMessage()) {
         const data = {
           type: 'contact',
@@ -119,18 +125,23 @@ export default defineComponent({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
-        });
-        this.fullName = '';
-        this.email = '';
-        this.message = '';
-        this.isSuccessfulSend = true;
-        this.rerouteID = setTimeout(() => {
-          this.$router.push(Paths.HOME);
-        }, 3000);
-        this.rerouteInterval = setInterval(() => {
-          this.rerouteCountdown -= 1;
-        }, 1000);
-      }
+        })
+          .then((): void => {
+            this.fullName = '';
+            this.email = '';
+            this.message = '';
+            this.isSuccessfulSend = true;
+            this.rerouteID = setTimeout(() => {
+              this.$router.push(Paths.HOME);
+            }, 3000);
+            this.rerouteInterval = setInterval(() => {
+              this.rerouteCountdown -= 1;
+            }, 1000);
+          })
+          .catch((): void => {
+            this.errorMessage = 'Sorry, we were unable to send your message. Please try again.';
+          });
+        }
       this.sendAttempted = true;
     },
   },

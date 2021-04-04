@@ -19,6 +19,7 @@ module.exports = {
     'indent': ['warn', 2],
     'no-useless-escape': 'warn',
     'implicit-arrow-linebreak': 'off',
-    'arrow-parens': 'off'
+    'arrow-parens': 'off',
+    'no-useless-escape': 'warn'
   },
 };
