@@ -1,11 +1,13 @@
 "use strict";
 exports.__esModule = true;
+exports.handler = void 0;
 var getContactTemplate = function (body) { return "\n  <div>\n      <h1>Sender Info</h1>\n      <ul>\n          <li>\n              Sender Name: " + body.name + "\n          </li>\n          <li>\n              Sender Email: " + body.email + "</div>\n          </li>\n      </ul>\n      <h2>Message:</h2>\n      <div>" + body.message + "</div>\n  </div>\n"; };
+var getBugReportTemplate = function (body) { return "\n  <div>\n    <h1>Sender Info</h1>\n    <ul>\n      <li>\n        Sender Name: " + (body.name || 'N/A') + "\n      </li>\n      <li>\n        Sender Email: " + (body.email || 'N/A') + "\n      </li>\n    </ul>\n    <h2>Affected Application: " + body.appName + "</h2>\n    <h2>Message:</h2>\n    <p>" + body.message + "</p>\n  </div>\n"; };
 var getTemplate = function (body) {
     var type = body.type;
     switch (type) {
         case 'bugReport':
-            return '';
+            return getBugReportTemplate(body);
         case 'contact':
         default:
             return getContactTemplate(body);
