@@ -51,6 +51,7 @@ export default defineComponent({
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 200px;
+  transition: grid-template-columns 0.2s ease;
   padding: 1rem 5rem;
 }
 .appCard {
@@ -64,6 +65,12 @@ export default defineComponent({
   transition: box-shadow 0.2s ease;
   &:hover {
     box-shadow: 2px 2px 14px 3px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .appGrid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
