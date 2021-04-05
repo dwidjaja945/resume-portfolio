@@ -1,8 +1,8 @@
 <template>
   <main class="root">
     <Navigation>
-      <router-view />
       <h2>Report a Bug</h2>
+      <router-view />
       <div>
         <p>
           I never wanted it to come to this.

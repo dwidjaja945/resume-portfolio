@@ -18,7 +18,9 @@ export default defineComponent({
     --gradientBackground: linear-gradient(-45deg, var(--secondary), white);
 }
 
-body {
+body,
+h2,
+h3 {
     margin: 0;
 }
 #app {
