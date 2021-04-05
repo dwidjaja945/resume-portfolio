@@ -1,4 +1,4 @@
-enum Applications {
+export enum Applications {
   pricePerUnit = 'Price Per Unit',
 }
 
@@ -21,5 +21,3 @@ export const isKeyOfApplications = (
   appName: string,
 ): appName is keyof typeof Applications =>
   Applications[appName as keyof typeof Applications] !== undefined;
-
-export default Applications;

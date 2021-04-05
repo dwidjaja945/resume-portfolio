@@ -28,7 +28,7 @@
 <script lang="ts">
 import Navigation from '@/components/Navigation.vue';
 import { Paths, generateDynamicPath } from '@/router/Paths';
-import Applications from '@/router/Applications';
+import { Applications } from '@/router/Applications';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
