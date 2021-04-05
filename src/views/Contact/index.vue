@@ -2,7 +2,7 @@
   <main>
     <Navigation>
       <h2>Contact</h2>
-      <div>
+      <div class="root">
         <p>If you would like to reach me directly, please feel free to fill out the form below</p>
         <p>
           If you need to report a bug on one of my applications, please do so here:
@@ -33,6 +33,10 @@ h2 {
 main {
   background: var(--gradientBackground);
   min-height: 100vh;
+}
+
+.root {
+  padding: 0 1.5rem;
 }
 
 </style>

@@ -45,7 +45,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .root {
-  padding-bottom: 5rem;
+  padding: 0 1.5rem 5rem;
 }
 .appGrid {
   display: grid;
