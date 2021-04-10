@@ -21,6 +21,7 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'arrow-parens': 'off',
     'no-useless-escape': 'warn',
-    'eqeqeq': 'off'
+    'eqeqeq': 'off',
+    '@typescript-eslint/camelcase': 'off'
   },
 };

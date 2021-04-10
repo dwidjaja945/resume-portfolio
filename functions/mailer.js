@@ -8,8 +8,8 @@ var getExpenseReportTemplate = function (_a) {
     return "\n  <div>\n    <h1>New Expense</h1>\n    <ul>\n      <li>Category: " + category + "</li>\n      <li>Date: " + date + "</li>\n      <li>Amount: $" + amount + "</li>\n      <li>Payee: " + payee + "</li>\n      <li>Memo: " + memo + "</li>\n      <li>Payment Type: " + paymentType + "</li>\n    </ul>\n  </div>\n";
 };
 var getImposterNotifTemplate = function (_a) {
-    var secretCode = _a.secretCode;
-    return "\n  <div>\n    <h1 style=\"color: red;\">SOMEONE TRIED TO ACCESS PRIVATE</h1>\n    <p>They entered: <b>" + secretCode + "</b></p>\n  </div>\n";
+    var secretCode = _a.secretCode, googleData = _a.googleData;
+    return "\n  <div>\n    <h1 style=\"color: red;\">SOMEONE TRIED TO ACCESS PRIVATE</h1>\n    <p>They entered: <b>" + secretCode + "</b></p>\n    <div>\n      <p><b>Google Data:</b></p>\n      <p>" + JSON.stringify(googleData) + "</p>\n    </div>\n  </div>\n";
 };
 var getTemplate = function (body) {
     var type = body.type;

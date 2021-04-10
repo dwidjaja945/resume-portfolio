@@ -55,11 +55,16 @@ const getExpenseReportTemplate = ({
 
 const getImposterNotifTemplate = ({
   secretCode,
+  googleData,
   // eslint-disable-next-line @typescript-eslint/camelcase
 }: MailerPRIVATE_ImposterBody): string => `
   <div>
     <h1 style="color: red;">SOMEONE TRIED TO ACCESS PRIVATE</h1>
     <p>They entered: <b>${secretCode}</b></p>
+    <div>
+      <p><b>Google Data:</b></p>
+      <p>${JSON.stringify(googleData)}</p>
+    </div>
   </div>
 `;
 
@@ -82,6 +87,21 @@ const getTemplate = (body: MailerBody): string => {
   };
 };
 
+const getSubject = ({ type, name }: MailerBody): string => {
+  switch (type) {
+  case 'expenseReport':
+    return 'New Expense Entry';
+  case 'bugReport':
+    return 'New Bug Report';
+  case 'contact':
+    return `${name} sent you a message`;
+  case 'imposterNotif':
+    return 'SOMEONE TRIED TO ACCESS PRIVATE';
+  default:
+    return 'New Message From Your Personal Site';
+  }
+};
+
 export const handler = (event, context, callback) => {
   // eslint-disable-next-line
   const nodemailer = require('nodemailer');
@@ -101,7 +121,7 @@ export const handler = (event, context, callback) => {
     from: body.email || 'self',
     to: process.env.VUE_APP_EMAIL_TO,
     replyTo: body.email || 'N/A',
-    subject: `New Website Message from ${body.name || 'self'}`,
+    subject: getSubject(body),
     text: null,
     html,
     auth: {

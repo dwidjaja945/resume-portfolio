@@ -6,12 +6,12 @@ declare type MailerEventType =
 
 declare interface MailerBaseBody {
   type: MailerEventType;
+  name?: string;
+  email?: string;
 }
 
 declare interface MailerContactBody extends MailerBaseBody {
   type: 'contact' | 'bugReport';
-  name: string;
-  email: string;
   message: string;
   appName?: string;
 }
@@ -30,7 +30,8 @@ declare interface MailerPRIVATE_ExpenseBody extends MailerBaseBody {
 // eslint-disable-next-line
 declare interface MailerPRIVATE_ImposterBody extends MailerBaseBody {
   type: 'imposterNotif';
-  secretCode: string;
+  secretCode?: string;
+  googleData?: any;
 }
 
 declare type MailerBody =

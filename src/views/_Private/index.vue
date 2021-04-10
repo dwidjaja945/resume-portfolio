@@ -1,291 +1,31 @@
 <template>
   <div class="root" v-if="!isMe">
-    <h1>You lost?</h1>
-    <router-link to="/">Go Home</router-link>
-    <form @submit.prevent="check()" class="check">
-      <input type="password" v-model="secretCode" />
-      <button type="submit" :disabled="!secretCode.length || hasError" >CHECK</button>
-      <button type="button" @click="clear()">CLEAR</button>
-      <h3 v-show="hasError" class="errorText" >You probably should not be here</h3>
-    </form>
-  </div>
-  <div class="root" v-else >
-    <h3>How much did you spend today?</h3>
-    <div class="inputContainer">
-      <label for="spend-type">Category</label>
-      <select
-        class="select"
-        name="spend-type"
-        id="spend-type"
-        v-model="selectedSpendType"
-      >
-        <option
-          v-for="type of spendTypes"
-          :key="type"
-          :value="type"
-        >
-          {{type}}
-        </option>
-      </select>
+    <h1>Are you lost?</h1>
+    <div class="links">
+      <router-link to="/">Go Home</router-link>
+      <router-link :to="Paths.PRIVATE_EXPENSE">No</router-link>
     </div>
-    <div class="inputContainer">
-      <label for="spend-date">Date</label>
-      <input
-        type="date"
-        id="spend-date"
-        v-model="spendDate"
-      />
-    </div>
-    <div class="inputContainer">
-      <label for="amount">Amount ($)</label>
-      <input
-        class="amountInput"
-        type="number"
-        id="amount"
-        step="0.01"
-        v-model="amount"
-      />
-    </div>
-    <div class="inputContainer">
-      <label for="payee">Payee</label>
-      <input id="payee" type="text" v-model="payee" />
-    </div>
-    <div class="inputContainer">
-      <label for="what">For What</label>
-      <textarea
-        type="text"
-        id="what"
-        multiple
-        v-model="forWhat"
-      />
-    </div>
-    <div class="inputContainer">
-      <label for="payment-type">Payment Type</label>
-      <select
-        id="payment-type"
-        name="payment-type"
-        class="select"
-        v-model="paymentType"
-      >
-        <option value="CC">
-          CC
-        </option>
-        <option value="DEBIT">
-          DEBIT
-        </option>
-        <option value="CASH">
-          CASH
-        </option>
-        <option value="CHK">
-          CHK
-        </option>
-      </select>
-    </div>
-
-    <button
-      type="button"
-      :disabled="!payee.length || !amount.length"
-      @click="submit()"
-    >
-      SUBMIT
-    </button>
-    <button
-      type="button"
-      @click="reset()"
-    >
-      RESET
-    </button>
-    <button
-      type="button"
-      class="clear"
-      @click="clear()"
-    >
-      X
-    </button>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import fetchAdapter from '@/components/toolkit/fetchAdapter';
+import { Paths } from '@/router/Paths';
 import { defineComponent } from 'vue';
-import { spendTypes } from './spendTypes';
-
-const localStorageItem = 'cookie-data';
-
-// YYYY-MM-DD
-const getToday = (): string => {
-  const today = new Date();
-  const year = today.getFullYear();
-  let month: string | number = today.getMonth() + 1; // Months are 0-indexed
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  const day = today.getDate();
-  return `${year}-${month}-${day}`;
-};
-
-const initialData = {
-  isMe: false,
-  secretCode: '',
-  selectedSpendType: 'Groceries/Necessities',
-  spendDate: getToday(),
-  amount: '',
-  payee: '',
-  forWhat: '',
-  paymentType: 'CC',
-};
-
-type Data =
-  typeof initialData &
-  {
-   submitted: boolean;
-   hasError: boolean;
-   rerouteCountdownId: number | null;
-  }
 
 export default defineComponent({
-  created() {
-    this.checkIsMe();
-  },
-  computed: {
-    spendTypes() { return spendTypes; },
-  },
-  data(): Data {
+  setup() {
     return {
-      ...initialData,
-      submitted: false,
-      hasError: false,
-      rerouteCountdownId: null,
+      Paths,
     };
-  },
-  beforeUnmount() {
-    if (this.rerouteCountdownId !== null) {
-      clearTimeout(this.rerouteCountdownId);
-    }
-  },
-  methods: {
-    checkIsMe() {
-      const isMe = localStorage.getItem(localStorageItem);
-      this.isMe = isMe === process.env.VUE_APP_PRIVATE_CODE;
-    },
-    check(): void {
-      if (
-        this.secretCode == process.env.VUE_APP_PRIVATE_PASS_0
-        || this.secretCode == process.env.VUE_APP_PRIVATE_PASS_1
-      ) {
-        this.isMe = true;
-        this.hasError = false;
-        localStorage.setItem(localStorageItem, process.env.VUE_APP_PRIVATE_CODE);
-      } else {
-        localStorage.clear();
-        const data = {
-          type: 'imposterNotif',
-          secretCode: this.secretCode,
-        };
-        fetchAdapter('/.netlify/functions/mailer', {
-          body: JSON.stringify(data),
-        });
-        this.hasError = true;
-        this.reset();
-        this.rerouteCountdownId = setTimeout(() => {
-          this.$router.push('/');
-        }, 2000);
-      }
-    },
-    clear() {
-      localStorage.removeItem(localStorageItem);
-      this.reset();
-    },
-    submit() {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      const data: MailerPRIVATE_ExpenseBody = {
-        type: 'expenseReport',
-        category: this.selectedSpendType,
-        date: this.spendDate,
-        amount: this.amount,
-        payee: this.payee,
-        memo: this.forWhat,
-        paymentType: this.paymentType,
-      };
-      fetchAdapter('/.netlify/functions/mailer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-    },
-    reset() {
-      Object.assign(this.$data, { ...initialData });
-      this.checkIsMe();
-    },
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  padding: 1rem 5rem;
-  position: relative;
+.links {
+  display: grid;
+  grid-auto-columns: 1fr 1fr;
+  grid-gap: 2rem;
 }
-input {
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #332c2c;
-}
-button {
-  margin-top: 1rem;
-  background: var(--primary);
-  color: white;
-  padding: 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-.errorText {
-  color: #d12626;
-}
-
-.check {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  max-width: 20rem;
-}
-
-.inputContainer {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  textarea {
-    resize: vertical;
-    min-height: 7.5rem;
-  }
-}
-
-.select {
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-
-.clear {
-  position: absolute;
-  top: 0;
-  right: 1rem;
-  padding: 0.5rem;
-  background-color: var(--secondary);
-}
-
 </style>
