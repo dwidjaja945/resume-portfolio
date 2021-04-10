@@ -43,12 +43,12 @@ const getExpenseReportTemplate = ({
   <div>
     <h1>New Expense</h1>
     <ul>
-      <li>Category: ${category}</li>
-      <li>Date: ${date}</li>
-      <li>Amount: $${amount}</li>
-      <li>Payee: ${payee}</li>
-      <li>Memo: ${memo}</li>
-      <li>Payment Type: ${paymentType}</li>
+      <li>Category: <b>${category}</b></li>
+      <li>Date: <b>${date}</b></li>
+      <li>Amount: <b>$${amount}</b></li>
+      <li>Payee: <b>${payee}</b></li>
+      <li>Memo: <b>${memo}</b></li>
+      <li>Payment Type: <b>${paymentType}</b></li>
     </ul>
   </div>
 `;

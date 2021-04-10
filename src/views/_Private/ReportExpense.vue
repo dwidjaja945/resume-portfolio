@@ -9,91 +9,107 @@
     </form>
   </div>
   <div class="root" v-else >
-    <h3>How much did you spend today?</h3>
-    <div class="inputContainer">
-      <label for="spend-type">Category</label>
-      <select
-        class="select"
-        name="spend-type"
-        id="spend-type"
-        v-model="selectedSpendType"
-      >
-        <option
-          v-for="type of spendTypes"
-          :key="type"
-          :value="type"
+    <div v-if="!didSubmit">
+      <h3>How much did you spend today?</h3>
+      <div class="inputContainer">
+        <label for="spend-type">Category</label>
+        <select
+          class="select"
+          name="spend-type"
+          id="spend-type"
+          v-model="selectedSpendType"
         >
-          {{type}}
-        </option>
-      </select>
-    </div>
-    <div class="inputContainer">
-      <label for="spend-date">Date</label>
-      <input
-        type="date"
-        id="spend-date"
-        v-model="spendDate"
-      />
-    </div>
-    <div class="inputContainer">
-      <label for="amount">Amount ($)</label>
-      <input
-        class="amountInput"
-        type="number"
-        id="amount"
-        step="0.01"
-        v-model="amount"
-      />
-    </div>
-    <div class="inputContainer">
-      <label for="payee">Payee</label>
-      <input id="payee" type="text" v-model="payee" />
-    </div>
-    <div class="inputContainer">
-      <label for="what">For What</label>
-      <textarea
-        type="text"
-        id="what"
-        multiple
-        v-model="forWhat"
-      />
-    </div>
-    <div class="inputContainer">
-      <label for="payment-type">Payment Type</label>
-      <select
-        id="payment-type"
-        name="payment-type"
-        class="select"
-        v-model="paymentType"
-      >
-        <option value="CC">
-          CC
-        </option>
-        <option value="DEBIT">
-          DEBIT
-        </option>
-        <option value="CASH">
-          CASH
-        </option>
-        <option value="CHK">
-          CHK
-        </option>
-      </select>
-    </div>
+          <option
+            v-for="type of spendTypes"
+            :key="type"
+            :value="type"
+          >
+            {{type}}
+          </option>
+        </select>
+      </div>
+      <div class="inputContainer">
+        <label for="spend-date">Date</label>
+        <input
+          type="date"
+          id="spend-date"
+          v-model="spendDate"
+        />
+      </div>
+      <div class="inputContainer">
+        <label for="amount">Amount ($)</label>
+        <input
+          class="amountInput"
+          type="number"
+          id="amount"
+          step="0.01"
+          v-model="amount"
+        />
+      </div>
+      <div class="inputContainer">
+        <label for="payee">Payee</label>
+        <input id="payee" type="text" v-model="payee" />
+      </div>
+      <div class="inputContainer">
+        <label for="what">For What</label>
+        <textarea
+          type="text"
+          id="what"
+          multiple
+          v-model="forWhat"
+        />
+      </div>
+      <div class="inputContainer">
+        <label for="payment-type">Payment Type</label>
+        <select
+          id="payment-type"
+          name="payment-type"
+          class="select"
+          v-model="paymentType"
+        >
+          <option value="CC">
+            CC
+          </option>
+          <option value="DEBIT">
+            DEBIT
+          </option>
+          <option value="CASH">
+            CASH
+          </option>
+          <option value="CHK">
+            CHK
+          </option>
+        </select>
+      </div>
 
-    <button
-      type="button"
-      :disabled="!payee.length || !amount.length"
-      @click="submit()"
+      <div class="buttonContainer">
+        <button
+          type="button"
+          :disabled="didSubmit || !payee.length || !amount.length"
+          @click="submit()"
+        >
+          SUBMIT
+        </button>
+        <button
+          type="button"
+          @click="reset()"
+        >
+          RESET
+        </button>
+      </div>
+    </div>
+    <div
+      v-show="didSubmit"
+      class="submitNotice"
     >
-      SUBMIT
-    </button>
-    <button
-      type="button"
-      @click="reset()"
-    >
-      RESET
-    </button>
+      <h2>Successfully Submitted</h2>
+      <button
+        type="button"
+        @click="didSubmit = false"
+      >
+        SUBMIT ANOTHER
+      </button>
+    </div>
     <button
       type="button"
       class="clear"
@@ -143,6 +159,7 @@ const initialData = {
 type Data =
   typeof initialData &
   {
+    didSubmit: boolean;
     isMe: false;
     showLogin: boolean;
     uid: string;
@@ -193,6 +210,7 @@ export default defineComponent({
   data(): Data {
     return {
       ...initialData,
+      didSubmit: false,
       isMe: false,
       uid: '',
       submitted: false,
@@ -271,6 +289,7 @@ export default defineComponent({
       this.reset();
     },
     submit() {
+      this.didSubmit = true;
       const data: MailerPRIVATE_ExpenseBody = {
         type: 'expenseReport',
         category: this.selectedSpendType,
@@ -281,10 +300,6 @@ export default defineComponent({
         paymentType: this.paymentType,
       };
       fetchAdapter('/.netlify/functions/mailer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(data),
       });
     },
@@ -305,7 +320,6 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   padding: 1rem 5rem;
   position: relative;
 }
@@ -355,6 +369,16 @@ button {
 .select {
   padding: 0.5rem;
   border-radius: 4px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitNotice {
+  display: flex;
+  flex-direction: column;
 }
 
 .clearButton {

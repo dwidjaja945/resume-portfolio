@@ -5,7 +5,7 @@ var getContactTemplate = function (body) { return "\n  <div>\n      <h1>Sender I
 var getBugReportTemplate = function (body) { return "\n  <div>\n    <h1>Sender Info</h1>\n    <ul>\n      <li>\n        Sender Name: " + (body.name || 'N/A') + "\n      </li>\n      <li>\n        Sender Email: " + (body.email || 'N/A') + "\n      </li>\n    </ul>\n    <h2>Affected Application: " + body.appName + "</h2>\n    <h2>Message:</h2>\n    <p>" + body.message + "</p>\n  </div>\n"; };
 var getExpenseReportTemplate = function (_a) {
     var category = _a.category, date = _a.date, amount = _a.amount, payee = _a.payee, memo = _a.memo, paymentType = _a.paymentType;
-    return "\n  <div>\n    <h1>New Expense</h1>\n    <ul>\n      <li>Category: " + category + "</li>\n      <li>Date: " + date + "</li>\n      <li>Amount: $" + amount + "</li>\n      <li>Payee: " + payee + "</li>\n      <li>Memo: " + memo + "</li>\n      <li>Payment Type: " + paymentType + "</li>\n    </ul>\n  </div>\n";
+    return "\n  <div>\n    <h1>New Expense</h1>\n    <ul>\n      <li>Category: <b>" + category + "</b></li>\n      <li>Date: <b>" + date + "</b></li>\n      <li>Amount: <b>$" + amount + "</b></li>\n      <li>Payee: <b>" + payee + "</b></li>\n      <li>Memo: <b>" + memo + "</b></li>\n      <li>Payment Type: <b>" + paymentType + "</b></li>\n    </ul>\n  </div>\n";
 };
 var getImposterNotifTemplate = function (_a) {
     var secretCode = _a.secretCode, googleData = _a.googleData;
@@ -28,6 +28,21 @@ var getTemplate = function (body) {
     }
     ;
 };
+var getSubject = function (_a) {
+    var type = _a.type, name = _a.name;
+    switch (type) {
+        case 'expenseReport':
+            return 'New Expense Entry';
+        case 'bugReport':
+            return 'New Bug Report';
+        case 'contact':
+            return name + " sent you a message";
+        case 'imposterNotif':
+            return 'SOMEONE TRIED TO ACCESS PRIVATE';
+        default:
+            return 'New Message From Your Personal Site';
+    }
+};
 exports.handler = function (event, context, callback) {
     // eslint-disable-next-line
     var nodemailer = require('nodemailer');
@@ -47,7 +62,7 @@ exports.handler = function (event, context, callback) {
         from: body.email || 'self',
         to: process.env.VUE_APP_EMAIL_TO,
         replyTo: body.email || 'N/A',
-        subject: "New Website Message from " + (body.name || 'self'),
+        subject: getSubject(body),
         text: null,
         html: html,
         auth: {
