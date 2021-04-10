@@ -1,14 +1,4 @@
-type EventType = 'contact' | 'bugReport';
-
-interface MailerBody {
-  type: EventType;
-  name: string;
-  email: string;
-  message: string;
-  appName?: string;
-}
-
-const getContactTemplate = (body: MailerBody): string => `
+const getContactTemplate = (body: MailerContactBody): string => `
   <div>
       <h1>Sender Info</h1>
       <ul>
@@ -24,7 +14,7 @@ const getContactTemplate = (body: MailerBody): string => `
   </div>
 `;
 
-const getBugReportTemplate = (body: MailerBody): string => `
+const getBugReportTemplate = (body: MailerContactBody): string => `
   <div>
     <h1>Sender Info</h1>
     <ul>
@@ -41,16 +31,54 @@ const getBugReportTemplate = (body: MailerBody): string => `
   </div>
 `;
 
+const getExpenseReportTemplate = ({
+  category,
+  date,
+  amount,
+  payee,
+  memo,
+  paymentType,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+}: MailerPRIVATE_ExpenseBody): string => `
+  <div>
+    <h1>New Expense</h1>
+    <ul>
+      <li>Category: ${category}</li>
+      <li>Date: ${date}</li>
+      <li>Amount: $${amount}</li>
+      <li>Payee: ${payee}</li>
+      <li>Memo: ${memo}</li>
+      <li>Payment Type: ${paymentType}</li>
+    </ul>
+  </div>
+`;
+
+const getImposterNotifTemplate = ({
+  secretCode,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+}: MailerPRIVATE_ImposterBody): string => `
+  <div>
+    <h1 style="color: red;">SOMEONE TRIED TO ACCESS PRIVATE</h1>
+    <p>They entered: <b>${secretCode}</b></p>
+  </div>
+`;
+
 const getTemplate = (body: MailerBody): string => {
   const {
     type,
   } = body;
   switch (type) {
+  case 'expenseReport':
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    return getExpenseReportTemplate(body as MailerPRIVATE_ExpenseBody);
+  case 'imposterNotif':
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    return getImposterNotifTemplate(body as MailerPRIVATE_ImposterBody);
   case 'bugReport':
-    return getBugReportTemplate(body);
+    return getBugReportTemplate(body as MailerContactBody);
   case 'contact':
   default:
-    return getContactTemplate(body);
+    return getContactTemplate(body as MailerContactBody);
   };
 };
 
@@ -70,10 +98,10 @@ export const handler = (event, context, callback) => {
   const body: MailerBody = JSON.parse(event.body);
   const html = getTemplate(body);
   const mailOptions = {
-    from: body.email,
+    from: body.email || 'self',
     to: process.env.VUE_APP_EMAIL_TO,
-    replyTo: body.email,
-    subject: `New Website Message from ${body.name}`,
+    replyTo: body.email || 'N/A',
+    subject: `New Website Message from ${body.name || 'self'}`,
     text: null,
     html,
     auth: {

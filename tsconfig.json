@@ -33,7 +33,8 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/components/toolkit/fetchAdapter",
-    "/functions-src/*.ts"
+    "functions-src/*.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

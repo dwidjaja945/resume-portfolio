@@ -3,9 +3,23 @@ exports.__esModule = true;
 exports.handler = void 0;
 var getContactTemplate = function (body) { return "\n  <div>\n      <h1>Sender Info</h1>\n      <ul>\n          <li>\n              Sender Name: " + body.name + "\n          </li>\n          <li>\n              Sender Email: " + body.email + "</div>\n          </li>\n      </ul>\n      <h2>Message:</h2>\n      <div>" + body.message + "</div>\n  </div>\n"; };
 var getBugReportTemplate = function (body) { return "\n  <div>\n    <h1>Sender Info</h1>\n    <ul>\n      <li>\n        Sender Name: " + (body.name || 'N/A') + "\n      </li>\n      <li>\n        Sender Email: " + (body.email || 'N/A') + "\n      </li>\n    </ul>\n    <h2>Affected Application: " + body.appName + "</h2>\n    <h2>Message:</h2>\n    <p>" + body.message + "</p>\n  </div>\n"; };
+var getExpenseReportTemplate = function (_a) {
+    var category = _a.category, date = _a.date, amount = _a.amount, payee = _a.payee, memo = _a.memo, paymentType = _a.paymentType;
+    return "\n  <div>\n    <h1>New Expense</h1>\n    <ul>\n      <li>Category: " + category + "</li>\n      <li>Date: " + date + "</li>\n      <li>Amount: $" + amount + "</li>\n      <li>Payee: " + payee + "</li>\n      <li>Memo: " + memo + "</li>\n      <li>Payment Type: " + paymentType + "</li>\n    </ul>\n  </div>\n";
+};
+var getImposterNotifTemplate = function (_a) {
+    var secretCode = _a.secretCode;
+    return "\n  <div>\n    <h1 style=\"color: red;\">SOMEONE TRIED TO ACCESS PRIVATE</h1>\n    <p>They entered: <b>" + secretCode + "</b></p>\n  </div>\n";
+};
 var getTemplate = function (body) {
     var type = body.type;
     switch (type) {
+        case 'expenseReport':
+            // eslint-disable-next-line @typescript-eslint/camelcase
+            return getExpenseReportTemplate(body);
+        case 'imposterNotif':
+            // eslint-disable-next-line @typescript-eslint/camelcase
+            return getImposterNotifTemplate(body);
         case 'bugReport':
             return getBugReportTemplate(body);
         case 'contact':
@@ -30,10 +44,10 @@ exports.handler = function (event, context, callback) {
     var body = JSON.parse(event.body);
     var html = getTemplate(body);
     var mailOptions = {
-        from: body.email,
+        from: body.email || 'self',
         to: process.env.VUE_APP_EMAIL_TO,
-        replyTo: body.email,
-        subject: "New Website Message from " + body.name,
+        replyTo: body.email || 'N/A',
+        subject: "New Website Message from " + (body.name || 'self'),
         text: null,
         html: html,
         auth: {

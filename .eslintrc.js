@@ -20,6 +20,7 @@ module.exports = {
     'no-useless-escape': 'warn',
     'implicit-arrow-linebreak': 'off',
     'arrow-parens': 'off',
-    'no-useless-escape': 'warn'
+    'no-useless-escape': 'warn',
+    'eqeqeq': 'off'
   },
 };
