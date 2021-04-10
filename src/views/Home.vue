@@ -26,7 +26,7 @@
         <div>
           <p>
             Feel free to look at my resume
-            <router-link to="/resume" target="_blank" rel="noopener noreferrer">here</router-link>
+            <router-link to="/resume" target="_blank" aria-label="link to resume" rel="noopener noreferrer">here</router-link>
             (<router-link
               to="/printable-resume"
               target="_blank"
