@@ -43,6 +43,16 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: Paths.PRIVATE,
+    name: 'private',
+    component: () => import(/* webpackChunkName: "_private" */ '../views/_Private/index.vue'),
+  },
+  {
+    path: Paths.PRIVATE_EXPENSE,
+    name: 'private-expense-report',
+    component: () => import(/* webpackChunkName: "application-bug" */ '../views/_Private/ReportExpense.vue'),
+  },
 ];
 
 const router = createRouter({
