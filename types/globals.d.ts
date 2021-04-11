@@ -25,6 +25,7 @@ declare interface MailerPRIVATE_ExpenseBody extends MailerBaseBody {
   payee: string;
   memo: string;
   paymentType: string;
+  submittedBy: string;
 }
 
 // eslint-disable-next-line

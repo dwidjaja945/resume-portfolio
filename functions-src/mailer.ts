@@ -38,6 +38,7 @@ const getExpenseReportTemplate = ({
   payee,
   memo,
   paymentType,
+  submittedBy,
   // eslint-disable-next-line @typescript-eslint/camelcase
 }: MailerPRIVATE_ExpenseBody): string => `
   <div>
@@ -50,6 +51,7 @@ const getExpenseReportTemplate = ({
       <li>Memo: <b>${memo}</b></li>
       <li>Payment Type: <b>${paymentType}</b></li>
     </ul>
+    <p>Submitted by: ${submittedBy}</p>
   </div>
 `;
 

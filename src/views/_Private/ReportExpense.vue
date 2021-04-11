@@ -12,7 +12,17 @@
   </div>
   <div class="root" v-else >
     <div v-if="!didSubmit">
-      <h3>How much did you spend today?</h3>
+      <header>
+        <span/> <!-- This is so I can use display: grid to my liking -->
+        <h3>Add New Expense</h3>
+        <button
+          type="button"
+          class="clear"
+          @click="clear()"
+        >
+          X
+        </button>
+      </header>
       <div class="inputContainer">
         <label for="spend-type">Category</label>
         <select
@@ -115,13 +125,6 @@
         SUBMIT ANOTHER
       </button>
     </div>
-    <button
-      type="button"
-      class="clear"
-      @click="clear()"
-    >
-      X
-    </button>
   </div>
 </template>
 
@@ -164,6 +167,7 @@ const initialData = {
 type Data =
   typeof initialData &
   {
+    userName: string;
     didSubmit: boolean;
     isMe: false;
     showLogin: boolean;
@@ -199,6 +203,10 @@ export default defineComponent({
           const data = currentUser.data();
           if (data) {
             this.isMe = data.can_view;
+            const name = firebaseUser.displayName;
+            if (name) {
+              this.userName = name;
+            }
             return;
           }
         } catch (error) {
@@ -220,6 +228,7 @@ export default defineComponent({
   data(): Data {
     return {
       ...initialData,
+      userName: '',
       didSubmit: false,
       isMe: false,
       uid: '',
@@ -317,6 +326,7 @@ export default defineComponent({
         payee: this.payee,
         memo: this.forWhat,
         paymentType: this.paymentType,
+        submittedBy: this.userName,
       };
       fetchAdapter('/.netlify/functions/mailer', {
         body: JSON.stringify(data),
@@ -342,6 +352,12 @@ export default defineComponent({
   padding: 1rem 5rem;
   position: relative;
 }
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+}
+
 input {
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
@@ -405,11 +421,9 @@ button {
 }
 
 .clear {
-  position: absolute;
-  top: 0;
-  right: 1rem;
   padding: 0.5rem;
   background-color: var(--secondary);
+  margin: 0;
 }
 
 </style>

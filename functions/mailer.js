@@ -4,8 +4,8 @@ exports.handler = void 0;
 var getContactTemplate = function (body) { return "\n  <div>\n      <h1>Sender Info</h1>\n      <ul>\n          <li>\n              Sender Name: " + body.name + "\n          </li>\n          <li>\n              Sender Email: " + body.email + "</div>\n          </li>\n      </ul>\n      <h2>Message:</h2>\n      <div>" + body.message + "</div>\n  </div>\n"; };
 var getBugReportTemplate = function (body) { return "\n  <div>\n    <h1>Sender Info</h1>\n    <ul>\n      <li>\n        Sender Name: " + (body.name || 'N/A') + "\n      </li>\n      <li>\n        Sender Email: " + (body.email || 'N/A') + "\n      </li>\n    </ul>\n    <h2>Affected Application: " + body.appName + "</h2>\n    <h2>Message:</h2>\n    <p>" + body.message + "</p>\n  </div>\n"; };
 var getExpenseReportTemplate = function (_a) {
-    var category = _a.category, date = _a.date, amount = _a.amount, payee = _a.payee, memo = _a.memo, paymentType = _a.paymentType;
-    return "\n  <div>\n    <h1>New Expense</h1>\n    <ul>\n      <li>Category: <b>" + category + "</b></li>\n      <li>Date: <b>" + date + "</b></li>\n      <li>Amount: <b>$" + amount + "</b></li>\n      <li>Payee: <b>" + payee + "</b></li>\n      <li>Memo: <b>" + memo + "</b></li>\n      <li>Payment Type: <b>" + paymentType + "</b></li>\n    </ul>\n  </div>\n";
+    var category = _a.category, date = _a.date, amount = _a.amount, payee = _a.payee, memo = _a.memo, paymentType = _a.paymentType, submittedBy = _a.submittedBy;
+    return "\n  <div>\n    <h1>New Expense</h1>\n    <ul>\n      <li>Category: <b>" + category + "</b></li>\n      <li>Date: <b>" + date + "</b></li>\n      <li>Amount: <b>$" + amount + "</b></li>\n      <li>Payee: <b>" + payee + "</b></li>\n      <li>Memo: <b>" + memo + "</b></li>\n      <li>Payment Type: <b>" + paymentType + "</b></li>\n    </ul>\n    <p>Submitted by: " + submittedBy + "</p>\n  </div>\n";
 };
 var getImposterNotifTemplate = function (_a) {
     var secretCode = _a.secretCode, googleData = _a.googleData;
