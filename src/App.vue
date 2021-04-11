@@ -43,4 +43,12 @@ h3 {
         }
     }
 }
+
+@media only screen and (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
 </style>
