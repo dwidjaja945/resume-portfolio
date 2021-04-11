@@ -1,5 +1,7 @@
 <template>
   <div class="root" v-if="!isMe">
+    <h1>Again, this is <b>NOT</b> a public facing page</h1>
+    <h3>Proceed at your own risk</h3>
     <form @submit.prevent="check()" class="check">
       <input type="password" v-model="secretCode" />
       <div v-show="showLogin" id="firebaseAuth" />
@@ -105,7 +107,10 @@
       <h2>Successfully Submitted</h2>
       <button
         type="button"
-        @click="didSubmit = false"
+        @click="() => {
+          didSubmit = false;
+          reset();
+        }"
       >
         SUBMIT ANOTHER
       </button>
@@ -187,21 +192,26 @@ export default defineComponent({
     firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
         const { uid } = firebaseUser;
-        const user = await db.collection('users')
-          .doc(uid);
-        const currentUser = await user.get();
-        const data = currentUser.data();
-        if (data) {
-          this.isMe = data.can_view;
-        } else if (this.uid.length) {
-          const mailerData: MailerPRIVATE_ImposterBody = {
-            type: 'imposterNotif',
-            googleData: firebaseUser,
-          };
-          this.sendMail(mailerData);
-          this.reroute();
+        try {
+          const user = await db.collection('users')
+            .doc(uid);
+          const currentUser = await user.get();
+          const data = currentUser.data();
+          if (data) {
+            this.isMe = data.can_view;
+            return;
+          }
+        } catch (error) {
+          if (this.uid.length) {
+            const mailerData: MailerPRIVATE_ImposterBody = {
+              type: 'imposterNotif',
+              googleData: firebaseUser,
+            };
+            this.sendMail(mailerData);
+            this.reroute();
+            return;
+          }
         }
-        return;
       }
       this.isMe = false;
       this.renderAuthUI();
@@ -243,12 +253,21 @@ export default defineComponent({
             ...defaultUiConfig,
             callbacks: {
               signInSuccessWithAuthResult: (authResult: any): boolean => {
-                this.uid = authResult.user.uid;
+                const { uid } = authResult.user;
+                this.uid = uid;
+                db.collection('users')
+                  .doc(uid)
+                  .get()
+                  .then((): void => {
+                    const usersRef = db.collection('users');
+                    usersRef.doc(authResult.user.uid).set({
+                      can_view: true,
+                    });
+                  })
+                  .catch((): void => {
+                    console.log('You should not be here');
+                  });
                 return false;
-                // db.collection('users').doc(authResult.user.uid).set({
-                //   can_view: true,
-                // });
-                // return false;
               },
             },
           },

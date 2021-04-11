@@ -1,9 +1,15 @@
 <template>
   <div class="root" v-if="!isMe">
-    <h1>Are you lost?</h1>
+    <h1>
+      This is <b>NOT</b> a public facing path.
+    </h1>
+    <p>
+      If you found this page by accident, are are snooping around,
+      please return to <router-link to="/">home</router-link>.
+    </p>
     <div class="links">
       <router-link to="/">Go Home</router-link>
-      <router-link :to="Paths.PRIVATE_EXPENSE">No</router-link>
+      <router-link :to="Paths.PRIVATE_EXPENSE">Proceed</router-link>
     </div>
     <router-view />
   </div>

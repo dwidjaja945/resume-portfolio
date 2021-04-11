@@ -9,8 +9,8 @@ export enum Paths {
   APPLICATION_BUG = '/contact/report-bug/:appName',
   // === CONTACT end ===
   // ====== PRIVATE start ======
-  PRIVATE = '/_private',
-  PRIVATE_EXPENSE = '/_private/expense'
+  PRIVATE = '/_private_',
+  PRIVATE_EXPENSE = '/_private_/expense'
   // ====== PRIVATE end ======
 }
 
