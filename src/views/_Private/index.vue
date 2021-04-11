@@ -4,7 +4,7 @@
       This is <b>NOT</b> a public facing path.
     </h1>
     <p>
-      If you found this page by accident, are are snooping around,
+      If you found this page by accident, or are snooping around,
       please return to <router-link to="/">home</router-link>.
     </p>
     <div class="links">
