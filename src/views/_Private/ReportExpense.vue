@@ -156,7 +156,7 @@ const getToday = (): string => {
 const initialData = {
   secretCode: '',
   showLogin: false,
-  selectedSpendType: 'Groceries/Necessities',
+  selectedSpendType: 'Eating Out',
   spendDate: getToday(),
   amount: '',
   payee: '',
