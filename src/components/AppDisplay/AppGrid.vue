@@ -8,6 +8,7 @@
 .appGridRoot {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
   grid-auto-rows: 200px;
   transition: grid-template-columns 0.2s ease;
   padding: 1rem 5rem;

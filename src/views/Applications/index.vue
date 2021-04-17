@@ -5,14 +5,14 @@
       <p>Here are my current applictions</p>
       <AppGrid>
         <AppCard
-          v-for="({name, description, isUnderConstruction}, appKey) in Applications"
+          v-for="({appName, description, isUnderConstruction}, appKey) in Applications"
           :key="`application-list-${appKey}`"
           :to="generateDynamicPath(Paths.APPLICATIONS, appKey)"
           className="appCard"
         >
           <div class="appCardBody">
             <h2>
-              {{name}}
+              {{appName}}
             </h2>
             <p>
               {{description}}

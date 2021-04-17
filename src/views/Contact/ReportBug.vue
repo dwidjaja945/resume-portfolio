@@ -13,11 +13,11 @@
       </div>
       <AppGrid>
         <AppCard
-          v-for="({name}, appKey) in Applications"
+          v-for="({appName}, appKey) in Applications"
           :key="`report-bug-${appKey}`"
           :to="generateDynamicPath(Paths.REPORT_BUG, appKey)"
         >
-          <h3>{{name}}</h3>
+          <h3>{{appName}}</h3>
         </AppCard>
       </AppGrid>
     </Navigation>
