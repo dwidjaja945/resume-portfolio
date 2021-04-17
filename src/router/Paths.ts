@@ -2,6 +2,10 @@ export enum Paths {
   HOME = '/',
   ABOUT = '/about',
   RESUME = '/resume',
+
+  APPLICATIONS = '/applications',
+  VIEW_APPLICATION = '/applications/:appName',
+
   PRINTABLE_RESUME = '/printable-resume',
   // === CONTACT start ===
   CONTACT = '/contact',

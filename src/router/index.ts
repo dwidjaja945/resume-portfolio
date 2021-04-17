@@ -22,6 +22,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "resume" */ '../views/Resume.vue'),
   },
   {
+    path: Paths.APPLICATIONS,
+    name: 'applications',
+    component: () => import(/* webpackChunkName: "resume" */ '../views/Applications/index.vue'),
+  },
+  {
+    path: Paths.VIEW_APPLICATION,
+    name: 'view-application',
+    component: () =>
+      import(/* webpackChunkName: "view-application" */
+        '../views/Applications/AppInformation.vue'
+      ),
+  },
+  {
     path: Paths.PRINTABLE_RESUME,
     name: 'printable-resume',
     component: () => import(/* webpackChunkName: "printable-resume" */ '../views/Resume.vue'),

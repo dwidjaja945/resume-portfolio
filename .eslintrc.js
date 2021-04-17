@@ -22,6 +22,7 @@ module.exports = {
     'arrow-parens': 'off',
     'no-useless-escape': 'warn',
     'eqeqeq': 'off',
-    '@typescript-eslint/camelcase': 'off'
+    '@typescript-eslint/camelcase': 'off',
+    'comma-dangle': 'off'
   },
 };
