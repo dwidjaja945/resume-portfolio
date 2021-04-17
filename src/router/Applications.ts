@@ -1,6 +1,6 @@
 interface ApplicationsType {
   [appName: string]: {
-    name: string;
+    appKey: string;
     appName: string;
     description: string;
     isUnderConstruction?: boolean;
@@ -9,15 +9,14 @@ interface ApplicationsType {
 
 export const Applications: ApplicationsType = {
   pricePerUnit: {
-    name: 'pricePerUnit',
+    appKey: 'pricePerUnit',
     appName: 'Price Per Unit',
     description: `This is a Browser Extension
       that allows you to parse through grocery
       sites to find the best price per some unit.`,
-    isUnderConstruction: true,
   },
   kkbo: {
-    name: 'kkbo',
+    appKey: 'kkbo',
     appName: 'KKBO',
     description: `This is a WebApp that allows you to
       easily track and manage your expenses based off
@@ -33,11 +32,11 @@ export const getApplicationName = (
   if (Array.isArray(appName)) {
     // eslint-disable-next-line
     for (const _name of appName) {
-      const { name } = Applications[_name as keyof typeof Applications];
+      const { appName: name } = Applications[_name as keyof typeof Applications];
       if (name !== undefined) return name;
     };
   }
-  const { name } = Applications[appName as keyof typeof Applications];
+  const { appName: name } = Applications[appName as keyof typeof Applications];
   if (name !== undefined) return name;
   throw new Error(`${appName} not present in Applications. Check spelling or add to applications`);
 };
