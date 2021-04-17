@@ -9,8 +9,6 @@
     </p>
     <ContactForm
       :appName="appName"
-      :isEmailRequired="false"
-      :isFullNameRequired="false"
       contactType="bugReport"
     />
   </div>

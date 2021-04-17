@@ -14,11 +14,11 @@ export default defineComponent({
   props: {
     to: {
       type: String,
-      isRequired: true,
+      required: true,
     },
     className: {
       type: String,
-      isRequired: false
+      required: false
     }
   },
 });

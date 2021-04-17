@@ -8,8 +8,8 @@
       please return to <router-link to="/">home</router-link>.
     </p>
     <div class="links">
-      <router-link to="/">Go Home</router-link>
-      <router-link :to="Paths.PRIVATE_EXPENSE">Proceed</router-link>
+      <Button to="/">Go Home</Button>
+      <Button color="error" :to="Paths.PRIVATE_EXPENSE">Proceed</Button>
     </div>
     <router-view />
   </div>
@@ -17,9 +17,11 @@
 
 <script lang="ts">
 import { Paths } from '@/router/Paths';
+import Button from '@/components/Button/Button.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  components: { Button },
   setup() {
     return {
       Paths,
@@ -30,8 +32,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .links {
-  display: grid;
-  grid-auto-columns: 1fr 1fr;
-  grid-gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+  margin: auto;
+  > * {
+    margin-bottom: 1rem;
+  }
 }
 </style>

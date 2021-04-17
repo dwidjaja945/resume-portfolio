@@ -5,23 +5,28 @@
     <form @submit.prevent="check()" class="check">
       <input type="password" v-model="secretCode" />
       <div v-show="showLogin" id="firebaseAuth" />
-      <button type="submit" :disabled="!secretCode.length || hasError" >CHECK</button>
-      <button type="button" class="clearButton" @click="clear()">CLEAR</button>
+      <Button
+        type="submit"
+        color="primary"
+        :disabled="!secretCode.length || hasError"
+      >
+        CHECK
+      </Button>
+      <Button class="clearButton" @click="clear()">CLEAR</Button>
       <h3 v-show="hasError" class="errorText" >You probably should not be here</h3>
     </form>
   </div>
   <div class="root" v-else >
-    <div v-if="!didSubmit">
+    <div class="form" v-if="!didSubmit">
       <header>
         <span/> <!-- This is so I can use display: grid to my liking -->
         <h3>Add New Expense</h3>
-        <button
-          type="button"
+        <Button
           class="clear"
-          @click="clear()"
+          :click="clear"
         >
           X
-        </button>
+        </Button>
       </header>
       <div class="inputContainer">
         <label for="spend-type">Category</label>
@@ -95,19 +100,19 @@
       </div>
 
       <div class="buttonContainer">
-        <button
-          type="button"
+        <Button
           :disabled="didSubmit || !payee.length || !amount.length"
-          @click="submit()"
+          :click="submit"
+          color="primary"
         >
           SUBMIT
-        </button>
-        <button
-          type="button"
-          @click="reset()"
+        </Button>
+        <Button
+          :click="reset"
+          color="secondary"
         >
           RESET
-        </button>
+        </Button>
       </div>
     </div>
     <div
@@ -115,15 +120,14 @@
       class="submitNotice"
     >
       <h2>Successfully Submitted</h2>
-      <button
-        type="button"
-        @click="() => {
+      <Button
+        :click="() => {
           didSubmit = false;
           reset();
         }"
       >
         SUBMIT ANOTHER
-      </button>
+      </Button>
     </div>
   </div>
 </template>
@@ -136,6 +140,7 @@ import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
+import Button from '@/components/Button/Button.vue';
 import fetchAdapter from '@/components/toolkit/fetchAdapter';
 import { spendTypes } from './spendTypes';
 
@@ -187,6 +192,9 @@ const defaultUiConfig: firebaseui.auth.Config = {
 };
 
 export default defineComponent({
+  components: {
+    Button
+  },
   setup() {
     const uiRef = ref<firebaseui.auth.AuthUI | null>(null);
 
@@ -353,6 +361,10 @@ export default defineComponent({
   position: relative;
 }
 
+.form {
+  width: 300px;
+}
+
 header {
   display: grid;
   grid-template-columns: 1fr 10fr 1fr;
@@ -365,17 +377,6 @@ input {
 }
 button {
   margin-top: 1rem;
-  background: var(--primary);
-  color: white;
-  padding: 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }
 
 .errorText {
@@ -394,7 +395,6 @@ button {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  width: 300px;
   textarea {
     resize: vertical;
     min-height: 7.5rem;
@@ -417,12 +417,11 @@ button {
 }
 
 .clearButton {
-  background-color: var(--secondary);
+  margin-top: 1rem;
 }
 
 .clear {
   padding: 0.5rem;
-  background-color: var(--secondary);
   margin: 0;
 }
 

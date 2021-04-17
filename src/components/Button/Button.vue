@@ -1,40 +1,66 @@
 <template>
-  <button
-    type="button"
-    :class="[className, variant]"
+  <component
+    :is="component"
+    :type="type"
+    :class="['buttonRoot', color, className]"
+    :disabled="disabled"
+    :to="to"
     @click="click()"
   >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-type Variants =
+type Colors =
 | 'primary'
 | 'secondary'
 | 'error';
 
 export default defineComponent({
-  name: 'buttonBase',
+  name: 'ButtonBase',
   props: {
     click: {
       type: Function,
     },
     className: {
       type: String,
-      isRequired: false,
+      required: false,
     },
-    variant: {
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    type: {
       type: String,
-      isRequired: false,
-      validator(value: Variants): boolean {
+      required: false,
+      default: 'button'
+    },
+    to: {
+      type: String,
+      required: false,
+    },
+    color: {
+      type: String,
+      required: false,
+      validator(value: Colors): boolean {
         return new Set(['primary', 'secondary', 'error'])
           .has(value);
       }
     }
-  }
+  },
+  data() {
+    let component = 'button';
+    if (this.to) {
+      component = 'router-link';
+    }
+    return {
+      component,
+    };
+  },
 });
 </script>
 
@@ -44,7 +70,6 @@ $backgroundDark: darken($background, 5%);
 $backgroundLight: lighten($background, 5%);
 
 @mixin applySelectors($color, $dark, $light) {
-  background: $color;
   color: white;
   &:hover {
     background: $dark;
@@ -52,9 +77,19 @@ $backgroundLight: lighten($background, 5%);
   &:active {
     background: $light;
   }
+  &,
+  &:disabled {
+    background: $color;
+  }
 }
-
-button {
+a {
+  text-decoration: none;
+  &,
+  &:visited {
+    color: unset;
+  }
+}
+.buttonRoot {
   background: $background;
   border-radius: 6px;
   text-transform: uppercase;
@@ -63,6 +98,16 @@ button {
   cursor: pointer;
   outline: none;
   transition: background 0.025s linear;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  &:hover {
+    background: $backgroundDark;
+  }
+  &:active {
+    background: $backgroundLight;
+  }
   &.primary {
     $background: var(--primary);
     $backgroundDark: var(--primaryDark);
@@ -80,15 +125,6 @@ button {
     $backgroundDark: #af1c1c;
     $backgroundLight: #f55454;
     @include applySelectors($background, $backgroundDark, $backgroundLight);
-  }
-  &:disabled {
-    cursor: not-allowed;
-  }
-  &:hover {
-    background: $backgroundDark;
-  }
-  &:active {
-    background: $backgroundLight;
   }
 }
 </style>

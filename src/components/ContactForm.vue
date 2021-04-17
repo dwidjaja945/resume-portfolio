@@ -27,9 +27,14 @@
       />
       <p class="errorText" v-show="messageHasError">Please enter a message</p>
     </div>
-    <button type="button" :disabled="isMessageSending" @click="sendMessage">
+    <Button
+      type="button"
+      :disabled="isMessageSending"
+      color="primary"
+      :click="sendMessage"
+    >
       {{isMessageSending ? 'SENDING...' : 'SEND'}}
-    </button>
+    </Button>
     <h3 v-show="isSuccessfulSend">
       Message sent! Redirecting back to Home in {{rerouteCountdown}}...
     </h3>
@@ -42,6 +47,7 @@
 <script lang="ts">
 import { Paths } from '@/router/Paths';
 import fetchAdapter from '@/components/toolkit/fetchAdapter';
+import Button from '@/components/Button/Button.vue';
 import { defineComponent } from 'vue';
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -66,24 +72,28 @@ const COUNTDOWN = 3;
 
 export default defineComponent({
   name: 'ContactForm',
+  components: {
+    Button
+  },
   props: {
     isFullNameRequired: {
       type: Boolean,
-      isRequired: true,
+      required: false,
+      default: true
     },
     isEmailRequired: {
       type: Boolean,
-      isRequired: false,
+      required: false,
       default: true,
     },
     contactType: {
       type: String,
-      isRequired: false,
+      required: false,
       default: 'contact',
     },
     appName: {
       type: String,
-      isRequired: false,
+      required: false,
     },
   },
   data(): Data {
@@ -196,21 +206,6 @@ export default defineComponent({
     width: 10rem;
     padding: 1rem;
     border-radius: 6px;
-    background-color: var(--primary);
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-    cursor: pointer;
-    &:hover:not(:disabled) {
-      background-color: var(--primaryDark);
-    }
-    &:active {
-      background-color: var(--primaryLight);
-    }
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
   }
 
   .error {
