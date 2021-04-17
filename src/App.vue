@@ -15,6 +15,8 @@ export default defineComponent({
     --primaryDark:#02333f;
     --primaryLight: #125f72;
     --secondary: #559c96;
+    --secondaryDark: #377973;
+    --secondaryLight: #78b3ae;
     --gradientBackground: linear-gradient(-45deg, var(--secondary), white);
 }
 

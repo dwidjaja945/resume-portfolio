@@ -11,35 +11,36 @@
           Please select which application has a bug.
         </p>
       </div>
-      <div class="appGrid">
-        <router-link
-          v-for="(appName, appKey) in Applications"
+      <AppGrid>
+        <AppCard
+          v-for="({appName}, appKey) in Applications"
           :key="`report-bug-${appKey}`"
-          class="appCard"
           :to="generateDynamicPath(Paths.REPORT_BUG, appKey)"
         >
-          <h3>Price Per Unit</h3>
-        </router-link>
-      </div>
+          <h3>{{appName}}</h3>
+        </AppCard>
+      </AppGrid>
     </Navigation>
   </main>
 </template>
 
 <script lang="ts">
 import Navigation from '@/components/Navigation.vue';
+import AppGrid from '@/components/AppDisplay/AppGrid.vue';
+import AppCard from '@/components/AppDisplay/AppCard.vue';
 import { Paths, generateDynamicPath } from '@/router/Paths';
 import { Applications } from '@/router/Applications';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  components: { Navigation },
-  computed: {
-    Paths() { return Paths; },
-    Applications() { return Applications; },
+  setup() {
+    return {
+      Paths,
+      Applications,
+      generateDynamicPath
+    };
   },
-  methods: {
-    generateDynamicPath,
-  },
+  components: { Navigation, AppGrid, AppCard },
 });
 </script>
 
@@ -47,30 +48,5 @@ export default defineComponent({
 .root {
   padding: 0 1.5rem 5rem;
 }
-.appGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 200px;
-  transition: grid-template-columns 0.2s ease;
-  padding: 1rem 5rem;
-}
-.appCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-radius: 10px;
-  box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.25);
-  transition: box-shadow 0.2s ease;
-  &:hover {
-    box-shadow: 2px 2px 14px 3px rgba(0, 0, 0, 0.25);
-  }
-}
 
-@media screen and (max-width: 760px) {
-  .appGrid {
-    grid-template-columns: 1fr;
-  }
-}
 </style>
