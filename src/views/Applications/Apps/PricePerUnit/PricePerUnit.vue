@@ -33,6 +33,7 @@
         </p>
       </div>
       <blockquote
+        v-if="showOnSmall"
         class="tiktok-embed"
         cite="https://www.tiktok.com/@dwidjaja/video/6939312209067609349"
         data-video-id="6939312209067609349"
@@ -51,11 +52,21 @@
           <a target="_blank" title="♬ Steven Universe - L.Dre" href="https://www.tiktok.com/music/Steven-Universe-6795585271782967298">♬ Steven Universe - L.Dre</a>
         </section>
       </blockquote>
+      <div class="smallTiktok" v-else>
+        <a
+          href="https://www.tiktok.com/@dwidjaja/video/6939312209067609349"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="./tiktok.png" alt="tiktok" />
+        </a>
+      </div>
     </div>
 
     <div class="right">
       <div v-show="scriptLoaded" class="tiktokContainer">
         <blockquote
+          v-show="showOnSmall"
           class="tiktok-embed"
           cite="https://www.tiktok.com/@dwidjaja/video/6944445537663978757"
           data-video-id="6944445537663978757"
@@ -82,19 +93,38 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useScriptMixin, UseScriptMixinData } from '@/components/toolkit/mixins/useScript';
+import {
+  useScriptMixin, UseScriptMixinData
+} from '@/components/toolkit/mixins/useScript';
+import {
+  useResize,
+  Data as UseResizeData,
+  WINDOW_SIZE
+} from '@/components/toolkit/mixins/useResize';
 
-type Data = UseScriptMixinData;
+type Data = UseScriptMixinData & UseResizeData & {
+  showOnSmall: boolean;
+};
 
 export default defineComponent({
   name: 'pricePerUnit',
-  mixins: [useScriptMixin('https://www.tiktok.com/embed.js')],
+  mixins: [
+    useScriptMixin('https://www.tiktok.com/embed.js'),
+    useResize()
+  ],
   data(): Data {
     return {
       scriptLoaded: false,
       scriptError: false,
-      script: ''
+      script: '',
+      windowWidth: window.innerWidth,
+      showOnSmall: window.innerWidth > WINDOW_SIZE.small,
     };
+  },
+  watch: {
+    windowWidth() {
+      this.showOnSmall = this.windowWidth > WINDOW_SIZE.small;
+    },
   },
 });
 </script>
@@ -120,7 +150,14 @@ export default defineComponent({
   text-align: left;
 }
 
-@media only screen and (max-width: 760px) {
+.smallTiktok {
+  img {
+    width: 100%;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media only screen and (max-width: 768px) {
   .root {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;

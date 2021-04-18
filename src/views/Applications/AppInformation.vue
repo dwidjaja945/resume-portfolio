@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Applications } from '@/router/Applications';
-import PricePerUnit from '@/views/Applications/Apps/PricePerUnit.vue';
+import PricePerUnit from '@/views/Applications/Apps/PricePerUnit/PricePerUnit.vue';
 import AppNotFound from '@/views/Applications/Apps/AppNotFound.vue';
 
 import Button from '@/components/Button/Button.vue';
@@ -86,4 +86,12 @@ header {
   display: flex;
   justify-content: flex-start;
 }
+
+@media only screen and (max-width: 760px) {
+  main {
+    padding: 0 1rem;
+  }
+
+}
+
 </style>

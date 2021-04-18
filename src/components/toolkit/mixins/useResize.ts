@@ -4,7 +4,16 @@ export interface Data {
   windowWidth: number;
 }
 
-export const useResize = (cb?: any): ComponentOptions => ({
+export const WINDOW_SIZE = {
+  xsmall: 500,
+  small: 576,
+  medium: 768,
+  large: 992
+};
+
+type CallBack = (width?: number) => void;
+
+export const useResize = (cb?: CallBack): ComponentOptions => ({
   data() {
     return {
       windowWidth: window.innerWidth,
@@ -19,6 +28,7 @@ export const useResize = (cb?: any): ComponentOptions => ({
   methods: {
     handleResize() {
       this.windowWidth = window.innerWidth;
+      if (cb) cb(window.innerWidth);
     },
   },
 });
