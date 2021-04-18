@@ -81,7 +81,9 @@
               <a title="software" target="_blank" href="https://www.tiktok.com/tag/software">##software</a>
               <a title="softwareengineer" target="_blank" href="https://www.tiktok.com/tag/softwareengineer">##softwareengineer</a>
               <a title="chrome" target="_blank" href="https://www.tiktok.com/tag/chrome">##chrome</a>
-              <a title="hack" target="_blank" href="https://www.tiktok.com/tag/hack">##hack</a> <a title="vue" target="_blank" href="https://www.tiktok.com/tag/vue">##vue</a> <a title="extensions" target="_blank" href="https://www.tiktok.com/tag/extensions">##extensions</a>
+              <a title="hack" target="_blank" href="https://www.tiktok.com/tag/hack">##hack</a>
+              <a title="vue" target="_blank" href="https://www.tiktok.com/tag/vue">##vue</a>
+              <a title="extensions" target="_blank" href="https://www.tiktok.com/tag/extensions">##extensions</a>
             </p>
             <a target="_blank" title="♬ Lofi - Domknowz" href="https://www.tiktok.com/music/Lofi-6799585653702019073">♬ Lofi - Domknowz</a>
             </section>
