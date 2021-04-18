@@ -18,6 +18,7 @@
 <script lang="ts">
 import { Applications } from '@/router/Applications';
 import PricePerUnit from '@/views/Applications/Apps/PricePerUnit/PricePerUnit.vue';
+import KKBO from '@/views/Applications/Apps/KKBO/KKBO.vue';
 import AppNotFound from '@/views/Applications/Apps/AppNotFound.vue';
 
 import Button from '@/components/Button/Button.vue';
@@ -25,7 +26,8 @@ import { defineComponent } from 'vue';
 
 type AppComponent =
 | typeof AppNotFound
-| typeof PricePerUnit;
+| typeof PricePerUnit
+| typeof KKBO;
 
 interface Data {
   appName: string;
@@ -36,6 +38,8 @@ const getAppComponent = (appName: string): AppComponent => {
   switch (appName) {
   case Applications.pricePerUnit.appKey:
     return PricePerUnit;
+  case Applications.kkbo.appKey:
+    return KKBO;
   default:
     return AppNotFound;
   };

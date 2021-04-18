@@ -1,10 +1,12 @@
 <template>
   <component
-    :is="component"
+    :is="renderedComponent"
     :type="type"
     :class="['buttonRoot', color, className]"
     :disabled="disabled"
     :to="to"
+    :href="href || ''"
+    target="_blank"
     @click="click()"
   >
     <slot />
@@ -43,6 +45,15 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    href: {
+      type: String,
+      required: false,
+    },
+    component: {
+      type: String,
+      required: false,
+      default: 'button',
+    },
     color: {
       type: String,
       required: false,
@@ -53,12 +64,14 @@ export default defineComponent({
     }
   },
   data() {
-    let component = 'button';
+    let renderedComponent = this.component;
     if (this.to) {
-      component = 'router-link';
-    }
+      renderedComponent = 'router-link';
+    } else if (this.href) {
+      renderedComponent = 'a';
+    };
     return {
-      component,
+      renderedComponent,
     };
   },
 });
@@ -89,7 +102,8 @@ a {
     color: unset;
   }
 }
-.buttonRoot {
+.buttonRoot,
+a {
   background: $background;
   border-radius: 6px;
   text-transform: uppercase;
