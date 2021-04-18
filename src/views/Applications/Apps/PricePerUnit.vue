@@ -18,6 +18,20 @@
           >TikToks</a>
         going over how it works!
       </p>
+      <div>
+        <p
+          class="githubText"
+        >
+          Check out the GitHub here:
+          <a
+            href="https://github.com/dwidjaja945/price-per-unit-extension"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="@/assets/images/github.png" alt="github icon">
+          </a>
+        </p>
+      </div>
       <blockquote
         class="tiktok-embed"
         cite="https://www.tiktok.com/@dwidjaja/video/6939312209067609349"
@@ -90,6 +104,16 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
+}
+
+.githubText {
+  display: flex;
+  align-items: center;
+  img {
+    margin-left: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+  }
 }
 
 .left {
