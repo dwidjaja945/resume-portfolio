@@ -9,7 +9,13 @@
     </p>
     <div class="links">
       <Button to="/">Go Home</Button>
-      <Button color="error" :to="Paths.PRIVATE_EXPENSE">Proceed</Button>
+      <Button
+        color="error"
+        :to="Paths.PRIVATE_EXPENSE"
+        @click="logEvent()"
+      >
+        Proceed
+      </Button>
     </div>
     <router-view />
   </div>
@@ -18,6 +24,7 @@
 <script lang="ts">
 import { Paths } from '@/router/Paths';
 import Button from '@/components/Button/Button.vue';
+import firebase from 'firebase';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -26,6 +33,14 @@ export default defineComponent({
     return {
       Paths,
     };
+  },
+  created() {
+    firebase.analytics().logEvent('user_on_private');
+  },
+  methods: {
+    logEvent(): void {
+      firebase.analytics().logEvent('user_proceed_to_private');
+    },
   },
 });
 </script>

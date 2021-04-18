@@ -18,5 +18,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+// https://firebase.google.com/docs/analytics/events
+firebase.analytics();
 
 createApp(App).use(store).use(router).mount('#app');

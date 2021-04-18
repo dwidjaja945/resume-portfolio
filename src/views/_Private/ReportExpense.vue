@@ -219,6 +219,13 @@ export default defineComponent({
           }
         } catch (error) {
           if (this.uid.length) {
+            firebase.analytics().logEvent('imposter_tried_to_login');
+            firebase
+              .analytics()
+              .setUserProperties({
+                user_name: firebaseUser.displayName,
+                user_email: firebaseUser.email
+              });
             const mailerData: MailerPRIVATE_ImposterBody = {
               type: 'imposterNotif',
               googleData: firebaseUser,
@@ -309,6 +316,8 @@ export default defineComponent({
         if (this.uiRef) return;
         this.renderAuthUI();
       } else {
+        firebase.analytics().logEvent('potential_imposter');
+        firebase.analytics().setUserProperties({ user_input: this.secretCode });
         const data: MailerPRIVATE_ImposterBody = {
           type: 'imposterNotif',
           secretCode: this.secretCode,
