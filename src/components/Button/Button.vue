@@ -1,13 +1,9 @@
 <template>
   <component
     :is="renderedComponent"
-    :type="type"
     :class="['buttonRoot', color, className]"
     :disabled="disabled"
-    :to="to"
-    :href="href || ''"
-    target="_blank"
-    @click="click()"
+    v-bind="props"
   >
     <slot />
   </component>
@@ -20,6 +16,16 @@ type Colors =
 | 'primary'
 | 'secondary'
 | 'error';
+
+interface ComponentProps {
+  is: string;
+  type: string;
+  to?: string;
+  href?: string;
+  target?: string;
+  rel?: string;
+  onclick: () => void;
+}
 
 export default defineComponent({
   name: 'ButtonBase',
@@ -64,14 +70,23 @@ export default defineComponent({
     }
   },
   data() {
-    let renderedComponent = this.component;
+    const props: ComponentProps = {
+      is: this.component,
+      type: this.type,
+      onclick: this.click,
+    };
     if (this.to) {
-      renderedComponent = 'router-link';
+      props.is = 'router-link';
+      props.to = this.to;
     } else if (this.href) {
-      renderedComponent = 'a';
+      props.is = 'a';
+      props.href = this.href;
+      props.target = '_blank';
+      props.rel = 'noopener noreferrer';
     };
     return {
-      renderedComponent,
+      props,
+      renderedComponent: props.is,
     };
   },
 });
