@@ -60,6 +60,7 @@
           type="number"
           id="amount"
           step="0.01"
+          pattern="[0-9]*"
           v-model="amount"
         />
       </div>
@@ -147,22 +148,33 @@ import { spendTypes } from './spendTypes';
 const db = firebase.firestore();
 
 // YYYY-MM-DD
-const getToday = (): string => {
+const getToday = (): {
+  year: string;
+  month: string;
+  day: string;
+  today: string;
+} => {
   const today = new Date();
-  const year = today.getFullYear();
-  let month: string | number = today.getMonth() + 1; // Months are 0-indexed
-  if (month < 10) {
-    month = `0${month}`;
+  const year = String(today.getFullYear());
+  let monthValue: string | number = today.getMonth() + 1; // Months are 0-indexed
+  if (monthValue < 10) {
+    monthValue = `0${monthValue}`;
   }
-  const day = today.getDate();
-  return `${year}-${month}-${day}`;
+  const month = String(monthValue);
+  const day = String(today.getDate());
+  return {
+    year,
+    month,
+    day,
+    today: `${year}-${month}-${day}`,
+  };
 };
 
 const initialData = {
   secretCode: '',
   showLogin: false,
   selectedSpendType: 'Eating Out',
-  spendDate: getToday(),
+  spendDate: getToday().today,
   amount: '',
   payee: '',
   forWhat: '',
@@ -204,6 +216,7 @@ export default defineComponent({
     firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
         const { uid } = firebaseUser;
+        this.uid = uid;
         try {
           const user = await db.collection('users')
             .doc(uid);
@@ -345,9 +358,19 @@ export default defineComponent({
         paymentType: this.paymentType,
         submittedBy: this.userName,
       };
-      fetchAdapter('/.netlify/functions/mailer', {
-        body: JSON.stringify(data),
-      });
+      const expenseRef = db.collection(`users/${this.uid}/expenses`);
+      const { day, month, year } = getToday();
+      expenseRef
+        .doc(year)
+        .collection('months')
+        .doc(month)
+        .collection('day')
+        .doc(day)
+        .set({ day });
+      debugger;
+      // fetchAdapter('/.netlify/functions/mailer', {
+      //   body: JSON.stringify(data),
+      // });
     },
     sendMail(data: MailerPRIVATE_ExpenseBody | MailerPRIVATE_ImposterBody): void {
       fetchAdapter('/.netlify/functions/mailer', {
