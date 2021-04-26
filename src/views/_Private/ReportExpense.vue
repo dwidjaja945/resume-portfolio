@@ -360,13 +360,17 @@ export default defineComponent({
       };
       const expenseRef = db.collection(`users/${this.uid}/expenses`);
       const { day, month, year } = getToday();
+      const expenseData: Partial<MailerPRIVATE_ExpenseBody> = { ...data };
+      delete expenseData.type;
       expenseRef
         .doc(year)
         .collection('months')
         .doc(month)
-        .collection('day')
+        .collection('days')
         .doc(day)
-        .set({ day });
+        .set({
+          expenseData
+        });
       debugger;
       // fetchAdapter('/.netlify/functions/mailer', {
       //   body: JSON.stringify(data),
