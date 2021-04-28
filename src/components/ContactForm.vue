@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Paths } from '@/router/Paths';
-import fetchAdapter from '@/components/toolkit/fetchAdapter';
+import fetchAdapter from '@/toolkit/fetchAdapter';
 import Button from '@/components/Button/Button.vue';
 import { defineComponent } from 'vue';
 

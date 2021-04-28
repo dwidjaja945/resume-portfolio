@@ -23,6 +23,7 @@ module.exports = {
     'no-useless-escape': 'warn',
     'eqeqeq': 'off',
     '@typescript-eslint/camelcase': 'off',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    'symbol-description': 'off'
   },
 };

@@ -142,33 +142,11 @@ import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
 import Button from '@/components/Button/Button.vue';
-import fetchAdapter from '@/components/toolkit/fetchAdapter';
+import fetchAdapter from '@/toolkit/fetchAdapter';
+import { getToday } from '@/toolkit/utils';
 import { spendTypes } from './spendTypes';
 
 const db = firebase.firestore();
-
-// YYYY-MM-DD
-const getToday = (): {
-  year: string;
-  month: string;
-  day: string;
-  today: string;
-} => {
-  const today = new Date();
-  const year = String(today.getFullYear());
-  let monthValue: string | number = today.getMonth() + 1; // Months are 0-indexed
-  if (monthValue < 10) {
-    monthValue = `0${monthValue}`;
-  }
-  const month = String(monthValue);
-  const day = String(today.getDate());
-  return {
-    year,
-    month,
-    day,
-    today: `${year}-${month}-${day}`,
-  };
-};
 
 const initialData = {
   secretCode: '',
@@ -217,6 +195,7 @@ export default defineComponent({
       if (firebaseUser) {
         const { uid } = firebaseUser;
         this.uid = uid;
+        this.$store.dispatch('setUid', { uid });
         try {
           const user = await db.collection('users')
             .doc(uid);
@@ -368,8 +347,10 @@ export default defineComponent({
         .doc(month)
         .collection('days')
         .doc(day)
+        .collection('expenses')
+        .doc()
         .set({
-          expenseData
+          ...expenseData
         });
       debugger;
       // fetchAdapter('/.netlify/functions/mailer', {
