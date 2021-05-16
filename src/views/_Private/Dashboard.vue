@@ -18,14 +18,7 @@ export default defineComponent({
       if (firebaseUser) {
         const { uid } = firebaseUser;
         this.$store.dispatch('setUid', { uid });
-        const { year, month } = getToday();
-
-        const user = await db.collection('users').doc(uid);
-        const test = user.onSnapshot((snap) => {
-          console.log(snap);
-          debugger;
-        });
-        debugger;
+        const { year, month, day } = getToday();
       }
     });
   },
