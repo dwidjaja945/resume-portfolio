@@ -55,15 +55,9 @@
       </div>
       <div class="inputContainer">
         <label for="amount">Amount ($)</label>
-        <input
-          class="amountInput"
-          type="number"
-          id="amount"
-          step="0.01"
-          pattern="[0-9]*"
-          placeholder="0.00"
-          :value="amount"
-          @keyup="event => handleAmountChange(event.key)"
+        <AmountInput
+          :amount="amount"
+          @setAmount="setAmount"
         />
       </div>
       <div class="inputContainer">
@@ -144,6 +138,7 @@ import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
 import Button from '@/components/Button/Button.vue';
+import AmountInput from '@/components/AmountInput.vue';
 import fetchAdapter from '@/components/toolkit/fetchAdapter';
 import { spendTypes } from './spendTypes';
 
@@ -196,7 +191,8 @@ const defaultUiConfig: firebaseui.auth.Config = {
 
 export default defineComponent({
   components: {
-    Button
+    Button,
+    AmountInput
   },
   setup() {
     const uiRef = ref<firebaseui.auth.AuthUI | null>(null);
@@ -301,19 +297,8 @@ export default defineComponent({
         );
       };
     },
-    handleAmountChange(key: string): void {
-      if (Number.isNaN(Number(key)) && key !== 'Backspace') return;
-      const split = this.amount.replace('.', '').split('');
-      if (key === 'Backspace') {
-        split.pop();
-      } else {
-        split.push(key);
-      }
-      split.splice(-2, 0, '.');
-      if (split[0] === '0') {
-        split.shift();
-      }
-      this.amount = split.join('');
+    setAmount(newAmount: string): void {
+      this.amount = newAmount;
     },
     reroute() {
       firebase.auth().signOut();
@@ -425,10 +410,6 @@ button {
     resize: vertical;
     min-height: 7.5rem;
   }
-}
-
-.amountInput {
-  text-align: right;
 }
 
 .select {
