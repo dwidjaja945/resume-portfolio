@@ -60,7 +60,10 @@
           type="number"
           id="amount"
           step="0.01"
-          v-model="amount"
+          pattern="[0-9]*"
+          placeholder="0.00"
+          :value="amount"
+          @keyup="event => handleAmountChange(event.key)"
         />
       </div>
       <div class="inputContainer">
@@ -174,7 +177,7 @@ type Data =
   {
     userName: string;
     didSubmit: boolean;
-    isMe: false;
+    isMe: boolean;
     showLogin: boolean;
     uid: string;
     submitted: boolean;
@@ -298,6 +301,20 @@ export default defineComponent({
         );
       };
     },
+    handleAmountChange(key: string): void {
+      if (Number.isNaN(Number(key)) && key !== 'Backspace') return;
+      const split = this.amount.replace('.', '').split('');
+      if (key === 'Backspace') {
+        split.pop();
+      } else {
+        split.push(key);
+      }
+      split.splice(-2, 0, '.');
+      if (split[0] === '0') {
+        split.shift();
+      }
+      this.amount = split.join('');
+    },
     reroute() {
       firebase.auth().signOut();
       this.hasError = true;
@@ -408,6 +425,10 @@ button {
     resize: vertical;
     min-height: 7.5rem;
   }
+}
+
+.amountInput {
+  text-align: right;
 }
 
 .select {
