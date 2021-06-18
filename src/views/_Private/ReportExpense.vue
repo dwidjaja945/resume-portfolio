@@ -125,11 +125,6 @@
       >
         SUBMIT ANOTHER
       </Button>
-      <Button
-        :click="window.close()"
-      >
-       CLOSE
-      </Button>
     </div>
   </div>
 </template>
