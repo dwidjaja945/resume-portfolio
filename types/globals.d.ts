@@ -41,3 +41,10 @@ declare type MailerBody =
 | MailerPRIVATE_ExpenseBody
 // eslint-disable-next-line
 | MailerPRIVATE_ImposterBody;
+
+declare type Today = {
+  year: string;
+  month: string;
+  day: string;
+  today: string;
+};

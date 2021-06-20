@@ -140,6 +140,7 @@ import 'firebase/auth';
 import Button from '@/components/Button/Button.vue';
 import fetchAdapter from '@/toolkit/fetchAdapter';
 import { getToday } from '@/toolkit/utils';
+import { addExpense } from '@/toolkit/utils/firebase';
 import AmountInput from '@/components/AmountInput.vue';
 import { spendTypes } from './spendTypes';
 
@@ -326,7 +327,7 @@ export default defineComponent({
       this.uiRef = null;
       this.reset();
     },
-    submit() {
+    async submit() {
       this.didSubmit = true;
       const data: MailerPRIVATE_ExpenseBody = {
         type: 'expenseReport',
@@ -338,25 +339,10 @@ export default defineComponent({
         paymentType: this.paymentType,
         submittedBy: this.userName,
       };
-      const expenseRef = db.collection(`users/${this.uid}/expenses`);
-      const { day, month, year } = getToday();
-      const expenseData: Partial<MailerPRIVATE_ExpenseBody> = { ...data };
-      delete expenseData.type;
-      expenseRef
-        .doc(year)
-        .collection('months')
-        .doc(month)
-        .collection('days')
-        .doc(day)
-        .collection('expenses')
-        .doc()
-        .set({
-          ...expenseData
-        });
-      debugger;
-      // fetchAdapter('/.netlify/functions/mailer', {
-      //   body: JSON.stringify(data),
-      // });
+      addExpense(this.uid, data);
+      fetchAdapter('/.netlify/functions/mailer', {
+        body: JSON.stringify(data),
+      });
     },
     sendMail(data: MailerPRIVATE_ExpenseBody | MailerPRIVATE_ImposterBody): void {
       fetchAdapter('/.netlify/functions/mailer', {

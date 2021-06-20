@@ -1,10 +1,5 @@
 // YYYY-MM-DD
-export const getToday = (): {
-  year: string;
-  month: string;
-  day: string;
-  today: string;
-} => {
+export const getToday = (): Today => {
   const today = new Date();
   const year = String(today.getFullYear());
   let monthValue: string | number = today.getMonth() + 1; // Months are 0-indexed
