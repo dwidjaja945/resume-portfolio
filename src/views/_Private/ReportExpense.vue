@@ -28,6 +28,9 @@
           X
         </Button>
       </header>
+      <div>
+        <h3>So far, you've spent: ${{dailyTotal}} today.</h3>
+      </div>
       <div class="inputContainer">
         <label for="spend-type">Category</label>
         <select
@@ -140,7 +143,7 @@ import 'firebase/auth';
 import Button from '@/components/Button/Button.vue';
 import fetchAdapter from '@/toolkit/fetchAdapter';
 import { getToday } from '@/toolkit/utils';
-import { addExpense } from '@/toolkit/utils/firebase';
+import { addExpense, getCurrentDayTotal } from '@/toolkit/utils/firebase';
 import AmountInput from '@/components/AmountInput.vue';
 import { spendTypes } from './spendTypes';
 
@@ -165,6 +168,7 @@ type Data =
     isMe: boolean;
     showLogin: boolean;
     uid: string;
+    dailyTotal: string;
     submitted: boolean;
     hasError: boolean;
     rerouteCountdownId: number | null;
@@ -201,6 +205,7 @@ export default defineComponent({
           const currentUser = await user.get();
           const data = currentUser.data();
           if (data) {
+            this.setDailyTotal();
             this.isMe = data.can_view;
             const name = firebaseUser.displayName;
             if (name) {
@@ -238,6 +243,7 @@ export default defineComponent({
       didSubmit: false,
       isMe: false,
       uid: '',
+      dailyTotal: '0',
       submitted: false,
       hasError: false,
       rerouteCountdownId: null,
@@ -287,6 +293,14 @@ export default defineComponent({
             },
           },
         );
+      };
+    },
+    setDailyTotal(): void {
+      if (this.uid != null) {
+        getCurrentDayTotal(this.uid)
+          .then(total => {
+            this.dailyTotal = total;
+          });
       };
     },
     setAmount(newAmount: string): void {
@@ -340,9 +354,9 @@ export default defineComponent({
         submittedBy: this.userName,
       };
       addExpense(this.uid, data);
-      fetchAdapter('/.netlify/functions/mailer', {
-        body: JSON.stringify(data),
-      });
+      // fetchAdapter('/.netlify/functions/mailer', {
+      //   body: JSON.stringify(data),
+      // });
     },
     sendMail(data: MailerPRIVATE_ExpenseBody | MailerPRIVATE_ImposterBody): void {
       fetchAdapter('/.netlify/functions/mailer', {
@@ -350,6 +364,7 @@ export default defineComponent({
       });
     },
     reset() {
+      this.setDailyTotal();
       Object.assign(this.$data, { ...initialData });
     },
   },
