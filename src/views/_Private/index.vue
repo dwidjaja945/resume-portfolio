@@ -1,5 +1,5 @@
 <template>
-  <div class="root" v-if="!isMe">
+  <div class="root" >
     <h1>
       This is <b>NOT</b> a public facing path.
     </h1>
@@ -11,13 +11,12 @@
       <Button to="/">Go Home</Button>
       <Button
         color="error"
-        :to="Paths.PRIVATE_EXPENSE"
+        :to="Paths.PRIVATE_AUTHENTICATE"
         @click="logEvent()"
       >
         Proceed
       </Button>
     </div>
-    <router-view />
   </div>
 </template>
 
@@ -26,6 +25,8 @@ import { Paths } from '@/router/Paths';
 import Button from '@/components/Button/Button.vue';
 import firebase from 'firebase';
 import { defineComponent } from 'vue';
+
+const db = firebase.firestore();
 
 export default defineComponent({
   components: { Button },
@@ -36,6 +37,19 @@ export default defineComponent({
   },
   created() {
     firebase.analytics().logEvent('user_on_private');
+    firebase.auth().onAuthStateChanged(async firebaseUser => {
+      if (firebaseUser) {
+        const { uid } = firebaseUser;
+        this.$store.dispatch('setUid', { uid });
+        const user = await db.collection('users')
+          .doc(uid);
+        const currentUser = await user.get();
+        const data = currentUser.data();
+        if (data?.can_view) {
+          this.$router.replace(Paths.PRIVATE_DASHBOARD);
+        }
+      }
+    });
   },
   methods: {
     logEvent(): void {

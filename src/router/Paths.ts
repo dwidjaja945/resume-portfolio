@@ -14,6 +14,7 @@ export enum Paths {
   // === CONTACT end ===
   // ====== PRIVATE start ======
   PRIVATE = '/_private_',
+  PRIVATE_AUTHENTICATE = '/_private_/authenticate',
   PRIVATE_DASHBOARD = '/_private_/dashboard',
   PRIVATE_EXPENSE = '/_private_/expense'
   // ====== PRIVATE end ======

@@ -62,14 +62,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "_private" */ '../views/_Private/index.vue'),
   },
   {
-    path: Paths.PRIVATE_DASHBOARD,
-    name: 'private-dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/_Private/Dashboard.vue'),
-  },
-  {
-    path: Paths.PRIVATE_EXPENSE,
-    name: 'private-expense-report',
-    component: () => import(/* webpackChunkName: "expense-report" */ '../views/_Private/ReportExpense.vue'),
+    path: Paths.PRIVATE_AUTHENTICATE,
+    name: 'private-authenticate',
+    component: () => import(/* webpackChunkName: "private-authenticate" */ '../views/_Private/Authenticate.vue'),
+    children: [
+      {
+        path: Paths.PRIVATE_DASHBOARD,
+        name: 'private-dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/_Private/Dashboard.vue'),
+      },
+      {
+        path: Paths.PRIVATE_EXPENSE,
+        name: 'private-expense-report',
+        component: () => import(/* webpackChunkName: "expense-report" */ '../views/_Private/ReportExpense.vue'),
+      },
+    ]
   },
 ];
 
