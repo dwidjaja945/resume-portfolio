@@ -340,9 +340,9 @@ export default defineComponent({
         submittedBy: this.userName,
       };
       addExpense(this.uid, data);
-      // fetchAdapter('/.netlify/functions/mailer', {
-      //   body: JSON.stringify(data),
-      // });
+      fetchAdapter('/.netlify/functions/mailer', {
+        body: JSON.stringify(data),
+      });
     },
     sendMail(data: MailerPRIVATE_ExpenseBody | MailerPRIVATE_ImposterBody): void {
       fetchAdapter('/.netlify/functions/mailer', {
