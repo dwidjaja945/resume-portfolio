@@ -97,12 +97,12 @@
 import { defineComponent } from 'vue';
 import {
   useScriptMixin, UseScriptMixinData
-} from '@/components/toolkit/mixins/useScript';
+} from '@/toolkit/mixins/useScript';
 import {
   useResize,
   Data as UseResizeData,
   WINDOW_SIZE
-} from '@/components/toolkit/mixins/useResize';
+} from '@/toolkit/mixins/useResize';
 
 type Data = UseScriptMixinData & UseResizeData & {
   showOnSmall: boolean;

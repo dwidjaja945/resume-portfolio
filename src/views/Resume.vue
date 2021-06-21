@@ -272,7 +272,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useResize, Data as UseResizeData } from '@/components/toolkit/mixins';
+import { useResize, Data as UseResizeData } from '@/toolkit/mixins';
 import Navigation from '@/components/Navigation.vue';
 
 interface Data extends UseResizeData {

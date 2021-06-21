@@ -138,29 +138,19 @@ import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
 import Button from '@/components/Button/Button.vue';
+import fetchAdapter from '@/toolkit/fetchAdapter';
+import { getToday } from '@/toolkit/utils';
+import { addExpense } from '@/toolkit/utils/firebase';
 import AmountInput from '@/components/AmountInput.vue';
-import fetchAdapter from '@/components/toolkit/fetchAdapter';
 import { spendTypes } from './spendTypes';
 
 const db = firebase.firestore();
-
-// YYYY-MM-DD
-const getToday = (): string => {
-  const today = new Date();
-  const year = today.getFullYear();
-  let month: string | number = today.getMonth() + 1; // Months are 0-indexed
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  const day = today.getDate();
-  return `${year}-${month}-${day}`;
-};
 
 const initialData = {
   secretCode: '',
   showLogin: false,
   selectedSpendType: 'Eating Out',
-  spendDate: getToday(),
+  spendDate: getToday().today,
   amount: '',
   payee: '',
   forWhat: '',
@@ -203,6 +193,8 @@ export default defineComponent({
     firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
         const { uid } = firebaseUser;
+        this.uid = uid;
+        this.$store.dispatch('setUid', { uid });
         try {
           const user = await db.collection('users')
             .doc(uid);
@@ -335,7 +327,7 @@ export default defineComponent({
       this.uiRef = null;
       this.reset();
     },
-    submit() {
+    async submit() {
       this.didSubmit = true;
       const data: MailerPRIVATE_ExpenseBody = {
         type: 'expenseReport',
@@ -347,6 +339,7 @@ export default defineComponent({
         paymentType: this.paymentType,
         submittedBy: this.userName,
       };
+      addExpense(this.uid, data);
       fetchAdapter('/.netlify/functions/mailer', {
         body: JSON.stringify(data),
       });
