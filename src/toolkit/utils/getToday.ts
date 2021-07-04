@@ -7,7 +7,12 @@ export const getToday = (): Today => {
     monthValue = `0${monthValue}`;
   }
   const month = String(monthValue);
-  const day = String(today.getDate());
+  let dayValue: string | number = today.getDate();
+  if (dayValue < 10) {
+    dayValue = `0${dayValue}`;
+  }
+  const day = String(dayValue);
+
   return {
     year,
     month,
