@@ -222,6 +222,16 @@ export default defineComponent({
           if (data) {
             this.setDailyTotal();
             this.isMe = data.can_view;
+            // TODO - add common_categories to db
+            /*
+              {
+                [category]: number
+              }
+              Then sort by most occuring category.
+              Only display top 5.
+              Handle in addExpenses.ts.
+              Will need to create a method to parse through object returned from DB.
+            */
             this.commonCategories = data.common_categories ?? defaultCommonSpendTypes;
             const name = firebaseUser.displayName;
             if (name) {
