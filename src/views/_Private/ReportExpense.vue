@@ -41,12 +41,24 @@
         >
           <option
             v-for="type of spendTypes"
-            :key="type"
-            :value="type"
+            :key="type.id"
+            :value="type.spendType"
           >
-            {{type}}
+            {{type.spendType}}
           </option>
         </select>
+      </div>
+      <div class="commonCategoriesContainer">
+        Common Categories
+        <div class="commonCategories">
+          <PillButton
+            :key="type"
+            v-for="type of commonCategories"
+            :onclick="() => handlePillSelect(type)"
+          >
+            {{type}}
+          </PillButton>
+        </div>
       </div>
       <div class="inputContainer">
         <label for="spend-date">Date</label>
@@ -141,11 +153,12 @@ import 'firebaseui/dist/firebaseui.css';
 import 'firebase/auth';
 
 import Button from '@/components/Button/Button.vue';
+import PillButton from '@/components/PillButton/PillButton.vue';
 import fetchAdapter from '@/toolkit/fetchAdapter';
 import { getToday } from '@/toolkit/utils';
 import { addExpense, getCurrentDayTotal } from '@/toolkit/utils/firebase';
 import AmountInput from '@/components/AmountInput.vue';
-import { spendTypes } from './spendTypes';
+import { spendTypes, defaultCommonSpendTypes } from './spendTypes';
 
 const db = firebase.firestore();
 
@@ -158,6 +171,7 @@ const initialData = {
   payee: '',
   forWhat: '',
   paymentType: 'CC',
+  commonCategories: [],
 };
 
 type Data =
@@ -186,12 +200,13 @@ const defaultUiConfig: firebaseui.auth.Config = {
 export default defineComponent({
   components: {
     Button,
+    PillButton,
     AmountInput
   },
   setup() {
     const uiRef = ref<firebaseui.auth.AuthUI | null>(null);
 
-    return { uiRef, spendTypes };
+    return { uiRef, spendTypes, defaultCommonSpendTypes };
   },
   created() {
     firebase.auth().onAuthStateChanged(async firebaseUser => {
@@ -207,6 +222,7 @@ export default defineComponent({
           if (data) {
             this.setDailyTotal();
             this.isMe = data.can_view;
+            this.commonCategories = data.common_categories ?? defaultCommonSpendTypes;
             const name = firebaseUser.displayName;
             if (name) {
               this.userName = name;
@@ -294,6 +310,9 @@ export default defineComponent({
           },
         );
       };
+    },
+    handlePillSelect(type: string): void {
+      this.selectedSpendType = type;
     },
     setDailyTotal(): void {
       if (this.uid != null) {
@@ -418,6 +437,15 @@ button {
     resize: vertical;
     min-height: 7.5rem;
   }
+}
+
+.commonCategoriesContainer {
+  margin: 1rem;
+}
+
+.commonCategories {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .select {
