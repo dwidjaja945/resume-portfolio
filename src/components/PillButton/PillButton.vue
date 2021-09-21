@@ -26,6 +26,7 @@ export default defineComponent({
   padding: 0.5rem;
   margin: 0.15rem;
   min-width: 5rem;
+  font-weight: bold;
 }
 
 </style>
