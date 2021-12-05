@@ -45,9 +45,9 @@
           <div class="work-experience content-item">
             <h3 class="title">Work Experience</h3>
             <div class="experience">
-              <h4 class="experience-title">Software Engineer</h4>
+              <h4 class="experience-title">Meta (formerly Facebook)</h4>
               <div class="company">
-                <span>Facebook</span>
+                <span>Software Engineer</span>
                 <span>2021 - Present</span>
               </div>
               <ul>
@@ -55,14 +55,17 @@
                   Ads Experiments
                 </li>
                 <li>
-                  Technologies: <b>ReactJS, Hack(PHP), Graph API</b>
+                  Facebook Groups
+                </li>
+                <li>
+                  Technologies: <b>ReactJS, Relay, Hack(PHP), Graph API</b>
                 </li>
               </ul>
             </div>
             <div class="work-experience">
-              <h4 class="experience-title">Software Engineer</h4>
+              <h4 class="experience-title">SurePrep LLC – Professional Tax Automation Software</h4>
               <div class="company">
-                <span>SurePrep LLC – Professional Tax Automation Software</span>
+                <span>Software Engineer</span>
                 <span>2018 - 2020</span>
               </div>
               <ul>
@@ -88,9 +91,9 @@
               </ul>
             </div>
             <div class="experience">
-              <h4 class="experience-title">Web Developer</h4>
+              <h4 class="experience-title">BigRentz – Construction Rental Service</h4>
               <div class="company">
-                <span>BigRentz – Construction Rental Service</span>
+                <span>Web Developer</span>
                 <span>2018</span>
               </div>
               <ul>
