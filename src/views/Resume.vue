@@ -1,8 +1,6 @@
 <template>
   <Navigation :show="isHome">
-    <div
-    class="root"
-    :class="{resume: !isHome}">
+    <div class="root" :class="{resume: !isHome}">
       <header class="header">
         <h1>
           Dylan Widjaja
@@ -15,18 +13,10 @@
           </div>
           <div class="info">
             <h3 v-if="showSmall">Links</h3>
-            <a
-              class="link"
-              :href="`https://${linkedin}`"
-              target="_blank"
-            >
+            <a class="link" :href="`https://${linkedin}`" target="_blank">
               {{linkedin}}
             </a>
-            <a
-              class="link"
-              :href="`https://${github}`"
-              target="_blank"
-            >
+            <a class="link" :href="`https://${github}`" target="_blank">
               {{github}}
             </a>
           </div>
@@ -184,54 +174,64 @@
 
           <div class="technical-skills">
             <h3 class="title">Technical Skills</h3>
-            <b>Strong</b>
-            <div class="skills">
-              <ul>
-                <li>Typescript</li>
-                <li>Javascript (ES5, ES6)</li>
-                <li>ReactJS/TS</li>
-                <li>React Hooks</li>
-                <li>ReduxJS</li>
-                <li>GraphAPI</li>
-                <li>Relay</li>
-                <li>VueJS</li>
-                <li>NodeJS</li>
-                <li>Netlify</li>
-                <li>LESS</li>
-              </ul>
-              <ul>
-                <li>SCSS</li>
-                <li>SASS</li>
-                <li>Git</li>
-                <li>APIs</li>
-                <li>OOP</li>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JSON</li>
-                <li>jQuery</li>
-                <li>Agile Methodology</li>
-              </ul>
+            <div class="skills-row">
+              <div class="skills-container">
+                <b>Strong</b>
+                <div class="skills">
+                  <ul>
+                    <li>Typescript</li>
+                    <li>Javascript (ES5, ES6)</li>
+                    <li>ReactJS/TS</li>
+                    <li>React Hooks</li>
+                    <li>ReduxJS</li>
+                    <li>GraphAPI</li>
+                    <li>Relay</li>
+                    <li>VueJS</li>
+                    <li>NodeJS</li>
+                    <li>Netlify</li>
+                    <li>LESS</li>
+                  </ul>
+                  <ul>
+                    <li>SCSS</li>
+                    <li>SASS</li>
+                    <li>Git</li>
+                    <li>APIs</li>
+                    <li>OOP</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JSON</li>
+                    <li>jQuery</li>
+                    <li>Agile Methodology</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <b>Experienced</b>
-            <div class="skills">
-              <ul>
-                <li>Material UI</li>
-                <li>NextJS</li>
-                <li>Gatsby</li>
-                <li>Firebase</li>
-                <li>Firestore</li>
-                <li>CSS Grid</li>
-                <li>Flexbox</li>
-                <li>CSS Modules</li>
-                <li>React-Native</li>
-                <li>MySQL</li>
-                <li>MongoDB</li>
-                <li>Regex</li>
-                <li>GCP</li>
-                <li>AWS</li>
-                <li>Certbot</li>
-              </ul>
-              <div>
+            <div class="skills-row">
+              <div class="skills-container">
+                <b>Experienced</b>
+                <div class="skills">
+                  <ul>
+                    <li>Material UI</li>
+                    <li>NextJS</li>
+                    <li>Gatsby</li>
+                    <li>Firebase</li>
+                    <li>Firestore</li>
+                    <li>CSS Grid</li>
+                    <li>Flexbox</li>
+                    <li>CSS Modules</li>
+                    <li>React-Native</li>
+                    <li>MySQL</li>
+                    <li>MongoDB</li>
+                    <li>Regex</li>
+                    <li>GCP</li>
+                    <li>AWS</li>
+                    <li>Certbot</li>
+                  </ul>
+                  <div>
+                  </div>
+                </div>
+              </div>
+              <div class="skills-container">
                 <b>Tools</b>
                 <ul>
                   <li>React Testing Library</li>
@@ -409,6 +409,15 @@ ul {
 
 .education-item {
   margin-bottom: 5px;
+}
+
+.skills-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.skills-container {
+  flex: 1;
 }
 
 .skills {
