@@ -192,14 +192,15 @@
                 <li>ReactJS/TS</li>
                 <li>React Hooks</li>
                 <li>ReduxJS</li>
+                <li>GraphAPI</li>
+                <li>Relay</li>
                 <li>VueJS</li>
                 <li>NodeJS</li>
                 <li>Netlify</li>
-                <li>MySQL</li>
                 <li>LESS</li>
-                <li>SCSS</li>
               </ul>
               <ul>
+                <li>SCSS</li>
                 <li>SASS</li>
                 <li>Git</li>
                 <li>APIs</li>
@@ -223,6 +224,7 @@
                 <li>Flexbox</li>
                 <li>CSS Modules</li>
                 <li>React-Native</li>
+                <li>MySQL</li>
                 <li>MongoDB</li>
                 <li>Regex</li>
                 <li>GCP</li>
