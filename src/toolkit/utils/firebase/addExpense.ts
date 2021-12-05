@@ -115,11 +115,15 @@ export const addExpense = async (
   const expenseRef = db.collection(`users/${uid}/expenses`);
   const { date: _spendDate } = data;
   const date = new Date(_spendDate);
-  date.setDate(date.getDate() + 1);
   // with how I formatted the date, I need to add 1 for
   // dates like 2021-06-01
   // as it reads as 31 May, 2021 when put into new Date()
-  const day = String(date.getDate());
+  date.setDate(date.getDate() + 1);
+  const dayVal = date.getDate();
+  let day = String(dayVal);
+  if (dayVal < 10) {
+    day = `0${day}`;
+  }
   const monthNum = date.getMonth() + 1;
   const monthString = monthNum < 10 ? `0${monthNum}` : String(monthNum);
   const month = String(monthString); // months are 0-indexed
