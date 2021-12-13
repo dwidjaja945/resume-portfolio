@@ -69,9 +69,16 @@
         />
       </div>
       <div class="inputContainer">
-        <label for="amount">Amount ($)</label>
+        <div>
+          <label for="amount">Amount ($)</label>
+          <div class="checkbox-container">
+            <input id="isReimbursement" type="checkbox" v-model="isReimbursement" />
+            <label for="isReimbursement">Reimbursement?</label>
+          </div>
+        </div>
         <AmountInput
           :amount="amount"
+          :isNegative="isReimbursement"
           @setAmount="setAmount"
         />
       </div>
@@ -172,6 +179,7 @@ const initialData = {
   forWhat: '',
   paymentType: 'CC',
   commonCategories: [],
+  isReimbursement: false,
 };
 
 type Data =
@@ -376,7 +384,10 @@ export default defineComponent({
         type: 'expenseReport',
         category: this.selectedSpendType,
         date: this.spendDate,
-        amount: this.amount,
+        amount:
+          this.isReimbursement
+            ? `-${this.amount}`
+            : this.amount,
         payee: this.payee,
         memo: this.forWhat,
         paymentType: this.paymentType,
@@ -456,6 +467,12 @@ button {
 .commonCategories {
   display: flex;
   flex-wrap: wrap;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .select {
