@@ -178,7 +178,7 @@ const initialData = {
   payee: '',
   forWhat: '',
   paymentType: 'CC',
-  commonCategories: [],
+  commonCategories: defaultCommonSpendTypes,
   isReimbursement: false,
 };
 
@@ -235,7 +235,7 @@ export default defineComponent({
               {
                 [category]: number
               }
-              Then sort by most occuring category.
+              Then sort by most occurring category.
               Only display top 5.
               Handle in addExpenses.ts.
               Will need to create a method to parse through object returned from DB.
