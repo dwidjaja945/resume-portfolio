@@ -5,7 +5,6 @@ const fetchAdapter = <T>(endpoint: string, options: any): Promise<T> =>
       'Content-Type': 'application/json',
     },
     ...options,
-  })
-    .then((resp) => resp.json());
+  }).then((resp) => resp.json());
 
 export default fetchAdapter;
