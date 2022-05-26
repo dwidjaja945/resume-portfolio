@@ -52,7 +52,7 @@
           </p>
           <p>
             After that job, I attended <b>LearningFuze</b>, an accelerated coding bootcamp.
-            Shortly finishing the bootcamp, I was offered a roll at a Tax Automation
+            Shortly finishing the bootcamp, I was offered a role at a Tax Automation
             Software company called <b>SurePrep</b>. There is where I solidifed myself as a
             Software Engineer.
           </p>
