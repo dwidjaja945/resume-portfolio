@@ -5,46 +5,31 @@
     <form @submit.prevent="check()" class="check">
       <input type="password" v-model="secretCode" />
       <div v-show="showLogin" id="firebaseAuth" />
-      <Button
-        type="submit"
-        color="primary"
-        :disabled="!secretCode.length || hasError"
-      >
+      <Button type="submit" color="primary" :disabled="!secretCode.length || hasError">
         CHECK
       </Button>
       <Button class="clearButton" @click="clear()">CLEAR</Button>
-      <h3 v-show="hasError" class="errorText" >You probably should not be here</h3>
+      <h3 v-show="hasError" class="errorText">You probably should not be here</h3>
     </form>
   </div>
-  <div class="root" v-else >
+  <div class="root" v-else>
     <div class="form" v-if="!didSubmit">
       <header>
-        <span/> <!-- This is so I can use display: grid to my liking -->
+        <span />
+        <!-- This is so I can use display: grid to my liking -->
         <h3>Add New Expense</h3>
-        <Button
-          class="clear"
-          :click="clear"
-        >
+        <Button class="clear" :click="clear">
           X
         </Button>
       </header>
       <div>
-        <h3>So far, you've spent: ${{dailyTotal}} today.</h3>
+        <h3>So far, you've spent: ${{ dailyTotal }} today.</h3>
       </div>
       <div class="inputContainer">
         <label for="spend-type">Category</label>
-        <select
-          class="select"
-          name="spend-type"
-          id="spend-type"
-          v-model="selectedSpendType"
-        >
-          <option
-            v-for="type of spendTypes"
-            :key="type.id"
-            :value="type.spendType"
-          >
-            {{type.spendType}}
+        <select class="select" name="spend-type" id="spend-type" v-model="selectedSpendType">
+          <option v-for="type of spendTypes" :key="type.id" :value="type.spendType">
+            {{ type.spendType }}
           </option>
         </select>
       </div>
@@ -56,17 +41,13 @@
             v-for="type of commonCategories"
             :onclick="() => handlePillSelect(type)"
           >
-            {{type}}
+            {{ type }}
           </PillButton>
         </div>
       </div>
       <div class="inputContainer">
         <label for="spend-date">Date</label>
-        <input
-          type="date"
-          id="spend-date"
-          v-model="spendDate"
-        />
+        <input type="date" id="spend-date" v-model="spendDate" />
       </div>
       <div class="inputContainer">
         <div>
@@ -76,11 +57,7 @@
             <label for="isReimbursement">Reimbursement?</label>
           </div>
         </div>
-        <AmountInput
-          :amount="amount"
-          :isNegative="isReimbursement"
-          @setAmount="setAmount"
-        />
+        <AmountInput :amount="amount" :isNegative="isReimbursement" @setAmount="setAmount" />
       </div>
       <div class="inputContainer">
         <label for="payee">Payee</label>
@@ -88,21 +65,11 @@
       </div>
       <div class="inputContainer">
         <label for="what">For What</label>
-        <textarea
-          type="text"
-          id="what"
-          multiple
-          v-model="forWhat"
-        />
+        <textarea type="text" id="what" multiple v-model="forWhat" />
       </div>
       <div class="inputContainer">
         <label for="payment-type">Payment Type</label>
-        <select
-          id="payment-type"
-          name="payment-type"
-          class="select"
-          v-model="paymentType"
-        >
+        <select id="payment-type" name="payment-type" class="select" v-model="paymentType">
           <option value="CC">
             CC
           </option>
@@ -120,30 +87,26 @@
 
       <div class="buttonContainer">
         <Button
-          :disabled="didSubmit || !payee.length || !amount.length"
+          :disabled="isSubmitting || didSubmit || !payee.length || !amount.length"
           :click="submit"
           color="primary"
         >
           SUBMIT
         </Button>
-        <Button
-          :click="reset"
-          color="secondary"
-        >
+        <Button :click="reset" color="secondary">
           RESET
         </Button>
       </div>
     </div>
-    <div
-      v-show="didSubmit"
-      class="submitNotice"
-    >
+    <div v-show="didSubmit" class="submitNotice">
       <h2>Successfully Submitted</h2>
       <Button
-        :click="() => {
-          didSubmit = false;
-          reset();
-        }"
+        :click="
+          () => {
+            didSubmit = false;
+            reset();
+          }
+        "
       >
         SUBMIT ANOTHER
       </Button>
@@ -152,57 +115,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref } from "vue";
 
-import firebase from 'firebase';
-import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css';
-import 'firebase/auth';
+import firebase from "firebase";
+import * as firebaseui from "firebaseui";
+import "firebaseui/dist/firebaseui.css";
+import "firebase/auth";
 
-import Button from '@/components/Button/Button.vue';
-import PillButton from '@/components/PillButton/PillButton.vue';
-import fetchAdapter from '@/toolkit/fetchAdapter';
-import { getToday } from '@/toolkit/utils';
-import { addExpense, getCurrentDayTotal } from '@/toolkit/utils/firebase';
-import AmountInput from '@/components/AmountInput.vue';
-import { spendTypes, defaultCommonSpendTypes } from './spendTypes';
+import Button from "@/components/Button/Button.vue";
+import PillButton from "@/components/PillButton/PillButton.vue";
+import fetchAdapter from "@/toolkit/fetchAdapter";
+import { getToday } from "@/toolkit/utils";
+import { addExpense, getCurrentDayTotal } from "@/toolkit/utils/firebase";
+import AmountInput from "@/components/AmountInput.vue";
+import { spendTypes, defaultCommonSpendTypes } from "./spendTypes";
 
 const db = firebase.firestore();
 
 const initialData = {
-  secretCode: '',
+  secretCode: "",
   showLogin: false,
-  selectedSpendType: 'Eating Out',
+  selectedSpendType: "Eating Out",
   spendDate: getToday().today,
-  amount: '',
-  payee: '',
-  forWhat: '',
-  paymentType: 'CC',
+  amount: "",
+  payee: "",
+  forWhat: "",
+  paymentType: "CC",
   commonCategories: defaultCommonSpendTypes,
-  isReimbursement: false,
+  isReimbursement: false
 };
 
-type Data =
-  typeof initialData &
-  {
-    userName: string;
-    didSubmit: boolean;
-    isMe: boolean;
-    showLogin: boolean;
-    uid: string;
-    dailyTotal: string;
-    submitted: boolean;
-    hasError: boolean;
-    rerouteCountdownId: number | null;
-  };
+type Data = typeof initialData & {
+  userName: string;
+  didSubmit: boolean;
+  isSubmitting: boolean;
+  isMe: boolean;
+  showLogin: boolean;
+  uid: string;
+  dailyTotal: string;
+  submitted: boolean;
+  hasError: boolean;
+  rerouteCountdownId: number | null;
+};
 
 const defaultUiConfig: firebaseui.auth.Config = {
-  signInFlow: 'popup',
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  ],
-  tosUrl: 'https://google.com',
-  privacyPolicyUrl: 'https://google.com',
+  signInFlow: "popup",
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  tosUrl: "https://google.com",
+  privacyPolicyUrl: "https://google.com"
 };
 
 export default defineComponent({
@@ -221,10 +181,9 @@ export default defineComponent({
       if (firebaseUser) {
         const { uid } = firebaseUser;
         this.uid = uid;
-        this.$store.dispatch('setUid', { uid });
+        this.$store.dispatch("setUid", { uid });
         try {
-          const user = await db.collection('users')
-            .doc(uid);
+          const user = await db.collection("users").doc(uid);
           const currentUser = await user.get();
           const data = currentUser.data();
           if (data) {
@@ -249,16 +208,14 @@ export default defineComponent({
           }
         } catch (error) {
           if (this.uid.length) {
-            firebase.analytics().logEvent('imposter_tried_to_login');
-            firebase
-              .analytics()
-              .setUserProperties({
-                user_name: firebaseUser.displayName,
-                user_email: firebaseUser.email
-              });
+            firebase.analytics().logEvent("imposter_tried_to_login");
+            firebase.analytics().setUserProperties({
+              user_name: firebaseUser.displayName,
+              user_email: firebaseUser.email
+            });
             const mailerData: MailerPRIVATE_ImposterBody = {
-              type: 'imposterNotif',
-              googleData: firebaseUser,
+              type: "imposterNotif",
+              googleData: firebaseUser
             };
             this.sendMail(mailerData);
             this.reroute();
@@ -273,14 +230,15 @@ export default defineComponent({
   data(): Data {
     return {
       ...initialData,
-      userName: '',
+      userName: "",
       didSubmit: false,
+      isSubmitting: false,
       isMe: false,
-      uid: '',
-      dailyTotal: '0',
+      uid: "",
+      dailyTotal: "0",
       submitted: false,
       hasError: false,
-      rerouteCountdownId: null,
+      rerouteCountdownId: null
     };
   },
   async beforeUnmount() {
@@ -298,47 +256,41 @@ export default defineComponent({
         this.uiRef = null;
       }
       if (!this.uiRef) {
-        await firebase
-          .auth()
-          .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
         this.uiRef = new firebaseui.auth.AuthUI(firebase.auth());
-        this.uiRef.start(
-          '#firebaseAuth',
-          {
-            ...defaultUiConfig,
-            callbacks: {
-              signInSuccessWithAuthResult: (authResult: any): boolean => {
-                const { uid } = authResult.user;
-                this.uid = uid;
-                db.collection('users')
-                  .doc(uid)
-                  .get()
-                  .then((): void => {
-                    const usersRef = db.collection('users');
-                    usersRef.doc(authResult.user.uid).set({
-                      can_view: true,
-                    });
-                  })
-                  .catch((): void => {
-                    console.log('You should not be here');
+        this.uiRef.start("#firebaseAuth", {
+          ...defaultUiConfig,
+          callbacks: {
+            signInSuccessWithAuthResult: (authResult: any): boolean => {
+              const { uid } = authResult.user;
+              this.uid = uid;
+              db.collection("users")
+                .doc(uid)
+                .get()
+                .then((): void => {
+                  const usersRef = db.collection("users");
+                  usersRef.doc(authResult.user.uid).set({
+                    can_view: true
                   });
-                return false;
-              },
-            },
-          },
-        );
-      };
+                })
+                .catch((): void => {
+                  console.log("You should not be here");
+                });
+              return false;
+            }
+          }
+        });
+      }
     },
     handlePillSelect(type: string): void {
       this.selectedSpendType = type;
     },
     setDailyTotal(): void {
       if (this.uid != null) {
-        getCurrentDayTotal(this.uid)
-          .then(total => {
-            this.dailyTotal = total;
-          });
-      };
+        getCurrentDayTotal(this.uid).then(total => {
+          this.dailyTotal = total;
+        });
+      }
     },
     setAmount(newAmount: string): void {
       this.amount = newAmount;
@@ -348,24 +300,24 @@ export default defineComponent({
       this.hasError = true;
       this.clear();
       this.rerouteCountdownId = setTimeout(() => {
-        this.$router.push('/');
+        this.$router.push("/");
       }, 2000);
     },
     check(): void {
       if (
-        this.secretCode === process.env.VUE_APP_PRIVATE_PASS_0
-        || this.secretCode === process.env.VUE_APP_PRIVATE_PASS_1
+        this.secretCode === process.env.VUE_APP_PRIVATE_PASS_0 ||
+        this.secretCode === process.env.VUE_APP_PRIVATE_PASS_1
       ) {
         this.showLogin = true;
         this.hasError = false;
         if (this.uiRef) return;
         this.renderAuthUI();
       } else {
-        firebase.analytics().logEvent('potential_imposter');
+        firebase.analytics().logEvent("potential_imposter");
         firebase.analytics().setUserProperties({ user_input: this.secretCode });
         const data: MailerPRIVATE_ImposterBody = {
-          type: 'imposterNotif',
-          secretCode: this.secretCode,
+          type: "imposterNotif",
+          secretCode: this.secretCode
         };
         this.sendMail(data);
         this.reroute();
@@ -379,35 +331,31 @@ export default defineComponent({
       this.reset();
     },
     async submit() {
-      this.didSubmit = true;
+      this.isSubmitting = true;
       const data: MailerPRIVATE_ExpenseBody = {
-        type: 'expenseReport',
+        type: "expenseReport",
         category: this.selectedSpendType,
         date: this.spendDate,
-        amount:
-          this.isReimbursement
-            ? `-${this.amount}`
-            : this.amount,
+        amount: this.isReimbursement ? `-${this.amount}` : this.amount,
         payee: this.payee,
         memo: this.forWhat,
         paymentType: this.paymentType,
-        submittedBy: this.userName,
+        submittedBy: this.userName
       };
-      addExpense(this.uid, data);
-      fetchAdapter('/.netlify/functions/mailer', {
-        body: JSON.stringify(data),
-      });
+      await Promise.all([addExpense(this.uid, data), this.sendMail(data)]);
+      this.didSubmit = true;
+      this.isSubmitting = false;
     },
-    sendMail(data: MailerPRIVATE_ExpenseBody | MailerPRIVATE_ImposterBody): void {
-      fetchAdapter('/.netlify/functions/mailer', {
-        body: JSON.stringify(data),
+    async sendMail(data: MailerPRIVATE_ExpenseBody | MailerPRIVATE_ImposterBody): Promise<void> {
+      await fetchAdapter("/.netlify/functions/mailer", {
+        body: JSON.stringify(data)
       });
     },
     reset() {
       this.setDailyTotal();
       Object.assign(this.$data, { ...initialData });
-    },
-  },
+    }
+  }
 });
 </script>
 
@@ -498,5 +446,4 @@ button {
   padding: 0.5rem;
   margin: 0;
 }
-
 </style>
