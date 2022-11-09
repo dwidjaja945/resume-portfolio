@@ -178,6 +178,7 @@
                     <li>ReduxJS</li>
                     <li>GraphAPI</li>
                     <li>Relay</li>
+                    <li>Hack(PHP)</li>
                     <li>VueJS</li>
                     <li>NodeJS</li>
                     <li>Netlify</li>
