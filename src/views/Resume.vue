@@ -1,6 +1,6 @@
 <template>
   <Navigation :show="isHome">
-    <div class="root" :class="{resume: !isHome}">
+    <div class="root" :class="{ resume: !isHome }">
       <header class="header">
         <h1>
           Dylan Widjaja
@@ -8,21 +8,21 @@
         <div class="header-info">
           <div class="info">
             <h3 v-if="showSmall">Contact</h3>
-            <a :href="`tel:${phone}`">{{phone}}</a>
-            <a :href="`mailto:${email}`" class="link">{{email}}</a>
+            <a :href="`tel:${phone}`">{{ phone }}</a>
+            <a :href="`mailto:${email}`" class="link">{{ email }}</a>
           </div>
           <div class="info">
             <h3 v-if="showSmall">Links</h3>
             <a class="link" :href="`https://${linkedin}`" target="_blank">
-              {{linkedin}}
+              {{ linkedin }}
             </a>
             <a class="link" :href="`https://${github}`" target="_blank">
-              {{github}}
+              {{ github }}
             </a>
           </div>
           <div>
             <h3 v-if="showSmall">Location</h3>
-            {{location}}
+            {{ location }}
           </div>
         </div>
       </header>
@@ -31,14 +31,13 @@
 
       <div :class="['content', isHome && 'padded']">
         <div class="left">
-
           <div class="work-experience content-item">
             <h3 class="title">Work Experience</h3>
             <div class="experience">
               <h4 class="experience-title">Meta (formerly Facebook)</h4>
               <div class="company">
                 <span>Software Engineer</span>
-                <span>2021 - Present</span>
+                <span>2021 - 2022</span>
               </div>
               <ul>
                 <li>
@@ -48,8 +47,9 @@
                   Facebook Groups
                 </li>
                 <li>
-                  Technologies: <b>ReactJS, Relay, Hack(PHP), Graph API</b>
+                  Server Capacity Management
                 </li>
+                <li>Technologies: <b>ReactJS, Relay, Hack(PHP), Graph API</b></li>
               </ul>
             </div>
             <div class="work-experience">
@@ -60,8 +60,8 @@
               </div>
               <ul>
                 <li>
-                  Utilize the latest versions of ReactJS/ReduxJS to
-                  build web application for CPAs and consumers to communicate
+                  Utilize the latest versions of ReactJS/ReduxJS to build web application for CPAs
+                  and consumers to communicate
                 </li>
                 <li>
                   Use LESS to implement styling from in-house UI/UX designer
@@ -75,9 +75,7 @@
                 <li>
                   Interviewed potential candidates to add to the team
                 </li>
-                <li>
-                  Tech: <b>ReactJS, ReduxJS, LESS, Material-UI, JIRA</b>
-                </li>
+                <li>Tech: <b>ReactJS, ReduxJS, LESS, Material-UI, JIRA</b></li>
               </ul>
             </div>
             <div class="experience">
@@ -105,9 +103,8 @@
               <h4 class="application-name">TeamStream – Communication System for Athletes</h4>
               <ul>
                 <li>
-                  Utilized NodeJS to build server and
-                  backend endpoints to connect to a MySQL relational
-                  database
+                  Utilized NodeJS to build server and backend endpoints to connect to a MySQL
+                  relational database
                 </li>
                 <li>
                   Deployed application to an AWS EC2 webserver.
@@ -119,8 +116,8 @@
               <h4 class="application-name">KKBO – Budgeting Application</h4>
               <ul>
                 <li>
-                  Creating and Architecting an in-progress application using
-                  React, Typescript, and Firebase/Firestore
+                  Creating and Architecting an in-progress application using React, Typescript, and
+                  Firebase/Firestore
                 </li>
                 <li>
                   Based off the Japanese saving method, Kakeibo
@@ -133,25 +130,21 @@
               <h4 class="application-name">Disneyland Reservation Finder – Chrome Extension</h4>
               <ul>
                 <li>
-                  Used Vanilla Javascript to build an
-                  Extension to help find reservations on
-                  the Disneyland Website
+                  Used Vanilla Javascript to build an Extension to help find reservations on the
+                  Disneyland Website
                 </li>
-                <li>
-                  Tech: <b>Vanilla JS, Chrome Extension API</b>
-                </li>
+                <li>Tech: <b>Vanilla JS, Chrome Extension API</b></li>
               </ul>
             </div>
             <div>
               <h4 class="application-name">AkaJassy – Makeup Blog</h4>
               <ul>
                 <li>
-                  Built and Designed static pages with Gatsby to
-                  host affiliate links, blogs, and Youtube video.
+                  Built and Designed static pages with Gatsby to host affiliate links, blogs, and
+                  Youtube video.
                 </li>
                 <li>
-                  Hosted site on Netlify, utilizing Netlify Lambdas
-                  and Firebase to store data.
+                  Hosted site on Netlify, utilizing Netlify Lambdas and Firebase to store data.
                 </li>
                 <li>Tech: <b>GatsbyJS, Netlify, Firebase</b></li>
               </ul>
@@ -160,7 +153,6 @@
         </div>
 
         <div class="right">
-
           <div>
             <h3 class="title">Education</h3>
             <div class="education-item">
@@ -227,8 +219,7 @@
                     <li>AWS</li>
                     <li>Certbot</li>
                   </ul>
-                  <div>
-                  </div>
+                  <div></div>
                 </div>
               </div>
               <div class="skills-container">
@@ -252,12 +243,12 @@
               <p>California State University Long Beach Men’s Rowing</p>
               <ul>
                 <li>
-                  Constructed and organized training plans for
-                  teammates using Kinesiology background
+                  Constructed and organized training plans for teammates using Kinesiology
+                  background
                 </li>
                 <li>
-                  Utilized strong communication and interpersonal skills to
-                  promote positive team mentality and development
+                  Utilized strong communication and interpersonal skills to promote positive team
+                  mentality and development
                 </li>
               </ul>
               <b>Musician</b>
@@ -268,7 +259,6 @@
               </ul>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -276,9 +266,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useResize, Data as UseResizeData } from '@/toolkit/mixins';
-import Navigation from '@/components/Navigation.vue';
+import { defineComponent } from "vue";
+import { useResize, Data as UseResizeData } from "@/toolkit/mixins";
+import Navigation from "@/components/Navigation.vue";
 
 interface Data extends UseResizeData {
   showSmall: boolean;
@@ -291,17 +281,15 @@ interface Data extends UseResizeData {
 }
 
 export default defineComponent({
-  name: 'Resume',
+  name: "Resume",
   components: {
-    Navigation,
+    Navigation
   },
-  mixins: [
-    useResize(),
-  ],
+  mixins: [useResize()],
   computed: {
     isHome(): boolean {
-      return this.$route.path === '/resume';
-    },
+      return this.$route.path === "/resume";
+    }
   },
   data(): Partial<Data> {
     return {
@@ -311,7 +299,7 @@ export default defineComponent({
       linkedin: process.env.VUE_APP_LINKEDIN,
       github: process.env.VUE_APP_GITHUB,
       location: process.env.VUE_APP_LOCATION,
-      phone: process.env.VUE_APP_PHONE,
+      phone: process.env.VUE_APP_PHONE
     };
   },
   watch: {
@@ -319,18 +307,17 @@ export default defineComponent({
       if (this.windowWidth !== undefined) {
         this.showSmall = this.windowWidth < 576;
       }
-    },
+    }
   },
   created() {
     if (!this.isHome) {
       window.print();
     }
-  },
+  }
 });
 </script>
 
 <style lang="scss" scoped>
-
 .root {
   margin-bottom: 60px;
 }
@@ -342,7 +329,10 @@ p {
 a {
   color: var(--primary);
 }
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   margin: 0;
 }
 ul {
@@ -354,7 +344,7 @@ ul {
 }
 
 .info {
-  >* {
+  > * {
     display: block;
   }
 }
@@ -442,12 +432,9 @@ ul {
 
 // Large devices (desktops, 992px and up)
 @media screen and (max-width: 992px) {
-
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media screen and (max-width: 1200px) {
-
 }
-
 </style>
