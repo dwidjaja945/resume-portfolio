@@ -44,18 +44,23 @@
                   Facebook Groups
                   <ul>
                     <li>
-                      Improved <b>initial page load time</b> by <b>~2%</b>, increasing
+                      Improved <b>initial page load time by 2%</b>, increasing
                       <b>
-                        Daily Active Users
+                        Daily Active Users by 4%
                       </b>
                       and
                       <b>
-                        Sessions
+                        Sessions by 1%
                       </b>
                     </li>
                     <li>
-                      Built a <b>Fallback Feed</b> mechanism, <b>increasing session time</b>, and
-                      <b>reducing broken feed occurrences</b>
+                      Built Groups You Should Join,
+                      <b>increasing groups joined per day by 2k</b>
+                    </li>
+                    <li>
+                      Built a <b>Fallback Feed</b> mechanism, <b>increasing session time by 2%</b>,
+                      and
+                      <b>reducing broken feed occurrences by 10%</b>
                     </li>
                   </ul>
                 </li>
@@ -64,7 +69,7 @@
                   <ul>
                     <b>Rearchitected</b>
                     the internal portal UI to handling server capacity and budgeting,
-                    <b>reducing initial load time</b
+                    <b>reducing initial load time by 6%</b
                     >, and
                     <b>improving app navigation</b>
                   </ul>
