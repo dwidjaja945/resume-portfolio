@@ -41,15 +41,43 @@
               </div>
               <ul>
                 <li>
-                  Ads Experiments
-                </li>
-                <li>
                   Facebook Groups
+                  <ul>
+                    <li>
+                      Improved <b>initial page load time</b> by <b>~2%</b>, increasing
+                      <b>
+                        Daily Active Users
+                      </b>
+                      and
+                      <b>
+                        Sessions
+                      </b>
+                    </li>
+                    <li>
+                      Built a <b>Fallback Feed</b> mechanism, <b>increasing session time</b>, and
+                      <b>reducing broken feed occurrences</b>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   Server Capacity Management
+                  <ul>
+                    <b>Rearchitected</b>
+                    the internal portal UI to handling server capacity and budgeting,
+                    <b>reducing initial load time</b
+                    >, and
+                    <b>improving app navigation</b>
+                  </ul>
                 </li>
-                <li>Technologies: <b>ReactJS, Relay, Hack(PHP), Graph API</b></li>
+                <li>
+                  Ads Experiments
+                  <ul>
+                    <li>
+                      <b>Increased visibility</b> of advertisers' most successful A/B Tested ads
+                    </li>
+                  </ul>
+                </li>
+                <li>Technologies: <b>ReactJS, Relay, Hack(PHP), GraphQL</b></li>
               </ul>
             </div>
             <div class="work-experience">
@@ -134,19 +162,6 @@
                   Disneyland Website
                 </li>
                 <li>Tech: <b>Vanilla JS, Chrome Extension API</b></li>
-              </ul>
-            </div>
-            <div>
-              <h4 class="application-name">AkaJassy – Makeup Blog</h4>
-              <ul>
-                <li>
-                  Built and Designed static pages with Gatsby to host affiliate links, blogs, and
-                  Youtube video.
-                </li>
-                <li>
-                  Hosted site on Netlify, utilizing Netlify Lambdas and Firebase to store data.
-                </li>
-                <li>Tech: <b>GatsbyJS, Netlify, Firebase</b></li>
               </ul>
             </div>
           </div>
@@ -248,8 +263,8 @@
                   background
                 </li>
                 <li>
-                  Utilized strong communication and interpersonal skills to promote positive team
-                  mentality and development
+                  Built a positive team mentality by maintaining open communication and personal
+                  relationships with the athletes
                 </li>
               </ul>
               <b>Musician</b>
