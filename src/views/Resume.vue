@@ -67,11 +67,16 @@
                 <li>
                   Server Capacity Management
                   <ul>
-                    <b>Rearchitected</b>
-                    the internal portal UI to handling server capacity and budgeting,
-                    <b>reducing initial load time by 6%</b
-                    >, and
-                    <b>improving app navigation</b>
+                    <li>
+                      <b>Rearchitected</b>
+                      the internal portal UI to handling server capacity and budgeting,
+                      <b>reducing initial load time by 6%</b>, and
+                      <b>improving app navigation</b>
+                    </li>
+                    <li>
+                      <b>Prioritized and delegated</b> work to off-shore teams to move project
+                      forward
+                    </li>
                   </ul>
                 </li>
                 <li>
@@ -120,9 +125,6 @@
               <ul>
                 <li>
                   Built static web pages using WordPress
-                </li>
-                <li>
-                  Utilized Foundation styling
                 </li>
                 <li>
                   Tech: WordPress, HTML, CSS
