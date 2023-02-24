@@ -98,21 +98,19 @@
               </div>
               <ul>
                 <li>
-                  Utilize the latest versions of ReactJS/ReduxJS to build web application for CPAs
-                  and consumers to communicate
+                  Utilize the latest versions of ReactJS/ReduxJS to build an <b>accessible</b> and
+                  <b>translated</b> web application for CPAs and consumers to communicate
                 </li>
-                <li>
-                  Use LESS to implement styling from in-house UI/UX designer
-                </li>
+                <li>Use <b>LESS</b> to implement styling from in-house UI/UX designer</li>
                 <li>
                   Implemented Dark Mode into application using Material-UI
                 </li>
                 <li>
                   Work in an Agile environment with an offshore backend team
                 </li>
-                <li>
+                <!-- <li>
                   Interviewed potential candidates to add to the team
-                </li>
+                </li> -->
                 <li>Tech: <b>ReactJS, ReduxJS, LESS, Material-UI, JIRA</b></li>
               </ul>
             </div>
