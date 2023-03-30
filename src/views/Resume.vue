@@ -34,6 +34,23 @@
           <div class="work-experience content-item">
             <h3 class="title">Work Experience</h3>
             <div class="experience">
+              <h4 class="experience-title">Presta</h4>
+              <div class="company">
+                <span>Senior Software Engineer</span>
+                <span>2023 - Present</span>
+              </div>
+              <ul>
+                <li><b>Lead</b> and <b>mentored</b> a team of junior engineers</li>
+                <li><b>Implemented</b> dev infrastructure, <b>reducing</b> friction</li>
+                <li><b>Prioritized and delegated</b> work to optimize velocity</li>
+                <li><b>Designed</b> application and feature architectures</li>
+                <li><b>Implemented and enforced</b> code standards and best practices</li>
+                <li><b>Collaborated</b> with designer and product manager to prioritize work</li>
+                <li>Wrote performant code following best <b>web accessibility</b> guidelines</li>
+                <li>Technologies: <b>ReactJS, Typescript, NodeJS, Postgres</b></li>
+              </ul>
+            </div>
+            <div class="experience">
               <h4 class="experience-title">Meta (formerly Facebook)</h4>
               <div class="company">
                 <span>Software Engineer</span>
@@ -101,20 +118,20 @@
                   Utilize the latest versions of ReactJS/ReduxJS to build an <b>accessible</b> and
                   <b>translated</b> web application for CPAs and consumers to communicate
                 </li>
-                <li>Use <b>LESS</b> to implement styling from in-house UI/UX designer</li>
+                <!-- <li>Use <b>LESS</b> to implement styling from in-house UI/UX designer</li> -->
                 <li>
-                  Implemented Dark Mode into application using Material-UI
+                  Implemented Dark Mode into application with Material-UI
                 </li>
                 <li>
-                  Work in an Agile environment with an offshore backend team
+                  Work in an Agile environment with an offshore team
                 </li>
-                <!-- <li>
+                <li>
                   Interviewed potential candidates to add to the team
-                </li> -->
+                </li>
                 <li>Tech: <b>ReactJS, ReduxJS, LESS, Material-UI, JIRA</b></li>
               </ul>
             </div>
-            <div class="experience">
+            <!-- <div class="experience">
               <h4 class="experience-title">BigRentz – Construction Rental Service</h4>
               <div class="company">
                 <span>Web Developer</span>
@@ -128,11 +145,11 @@
                   Tech: WordPress, HTML, CSS
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <div class="applications content-item">
             <h3 class="title">Applications Developed</h3>
-            <div>
+            <!-- <div>
               <h4 class="application-name">TeamStream – Communication System for Athletes</h4>
               <ul>
                 <li>
@@ -144,7 +161,7 @@
                 </li>
                 <li>Tech: <b>ReactJS, NodeJS, MySQL, AWS EC2, Certbot</b></li>
               </ul>
-            </div>
+            </div> -->
             <div>
               <h4 class="application-name">KKBO – Budgeting Application</h4>
               <ul>
@@ -155,7 +172,7 @@
                 <li>
                   Based off the Japanese saving method, Kakeibo
                 </li>
-                <li>Deploying application from Google Cloud Platform App Engine</li>
+                <li>Deploying application from Google Cloud Platform</li>
                 <li>Tech: <b>NextJS, Typescript, GCP, Firebase, Firestore</b></li>
               </ul>
             </div>
