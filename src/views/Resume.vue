@@ -40,7 +40,7 @@
                 <span>2023 - Present</span>
               </div>
               <ul>
-                <li><b>Lead</b> and <b>mentored</b> a team of junior engineers</li>
+                <li><b>Led</b> and <b>mentored</b> a team of junior engineers</li>
                 <li><b>Implemented</b> dev infrastructure, <b>reducing</b> friction</li>
                 <li><b>Prioritized and delegated</b> work to optimize velocity</li>
                 <li><b>Designed</b> application and feature architectures</li>
@@ -210,18 +210,20 @@
                   <ul>
                     <li>Typescript</li>
                     <li>Javascript (ES5, ES6)</li>
+                    <li>Python</li>
+                    <li>PHP</li>
                     <li>ReactJS/TS</li>
+                    <li>React-Native</li>
                     <li>React Hooks</li>
                     <li>ReduxJS</li>
                     <li>GraphAPI</li>
                     <li>Relay</li>
-                    <li>Hack(PHP)</li>
                     <li>VueJS</li>
+                  </ul>
+                  <ul>
                     <li>NodeJS</li>
                     <li>Netlify</li>
                     <li>LESS</li>
-                  </ul>
-                  <ul>
                     <li>SCSS</li>
                     <li>SASS</li>
                     <li>Git</li>
@@ -249,7 +251,6 @@
                     <li>CSS Grid</li>
                     <li>Flexbox</li>
                     <li>CSS Modules</li>
-                    <li>React-Native</li>
                     <li>MySQL</li>
                     <li>MongoDB</li>
                     <li>Regex</li>
