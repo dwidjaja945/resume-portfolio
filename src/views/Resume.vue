@@ -37,7 +37,7 @@
               <h4 class="experience-title">Presta</h4>
               <div class="company">
                 <span>Senior Software Engineer</span>
-                <span>2023 - Present</span>
+                <span>Jan 2023 - Present</span>
               </div>
               <ul>
                 <li><b>Led</b> and <b>mentored</b> a team of junior engineers</li>
@@ -54,7 +54,7 @@
               <h4 class="experience-title">Meta (formerly Facebook)</h4>
               <div class="company">
                 <span>Software Engineer</span>
-                <span>2021 - 2022</span>
+                <span>Jan 2021 - Nov 2022</span>
               </div>
               <ul>
                 <li>
@@ -111,7 +111,7 @@
               <h4 class="experience-title">SurePrep LLC – Professional Tax Automation Software</h4>
               <div class="company">
                 <span>Software Engineer</span>
-                <span>2018 - 2020</span>
+                <span>Oct 2018 - Dec 2020</span>
               </div>
               <ul>
                 <li>
@@ -219,9 +219,9 @@
                     <li>GraphAPI</li>
                     <li>Relay</li>
                     <li>VueJS</li>
+                    <li>NodeJS</li>
                   </ul>
                   <ul>
-                    <li>NodeJS</li>
                     <li>Netlify</li>
                     <li>LESS</li>
                     <li>SCSS</li>
