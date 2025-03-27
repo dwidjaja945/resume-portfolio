@@ -34,10 +34,36 @@
           <div class="work-experience content-item">
             <h3 class="title">Work Experience</h3>
             <div class="experience">
+              <h4 class="experience-title">Docusign</h4>
+              <div class="company">
+                <span>Software Engineer</span>
+                <span>Jul 2024 - Present</span>
+              </div>
+              <ul>
+                <li>
+                  <b>Designed and architected</b> full-stack net new features on Docusign
+                  <b>Webforms.</b>
+                </li>
+                <li>
+                  <b>Presented company-wide tech talks</b> on <b>React</b> best practices, fostering
+                  knowledge sharing and elevating UI expertise.
+                </li>
+                <li>
+                  <b>Established and enforced code standards</b>, ensuring consistency and
+                  maintainability across services.
+                </li>
+                <li>
+                  <b>Collaborated with cross-functional teams</b> to integrate microservices,
+                  enabling seamless adoption for external uses.
+                </li>
+              </ul>
+            </div>
+
+            <div class="experience">
               <h4 class="experience-title">Presta</h4>
               <div class="company">
                 <span>Senior Software Engineer</span>
-                <span>Jan 2023 - Present</span>
+                <span>Jan 2023 - Jun 2024</span>
               </div>
               <ul>
                 <li><b>Led</b> and <b>mentored</b> a team of junior engineers</li>
@@ -147,9 +173,9 @@
               </ul>
             </div> -->
           </div>
-          <div class="applications content-item">
+          <!-- <div class="applications content-item">
             <h3 class="title">Applications Developed</h3>
-            <!-- <div>
+            <div>
               <h4 class="application-name">TeamStream – Communication System for Athletes</h4>
               <ul>
                 <li>
@@ -161,7 +187,7 @@
                 </li>
                 <li>Tech: <b>ReactJS, NodeJS, MySQL, AWS EC2, Certbot</b></li>
               </ul>
-            </div> -->
+            </div>
             <div>
               <h4 class="application-name">KKBO – Budgeting Application</h4>
               <ul>
@@ -186,7 +212,7 @@
                 <li>Tech: <b>Vanilla JS, Chrome Extension API</b></li>
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="right">
