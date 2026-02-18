@@ -36,7 +36,7 @@
             <div class="experience">
               <h4 class="experience-title">Docusign</h4>
               <div class="company">
-                <span>Software Engineer</span>
+                <span>Senior Software Engineer</span>
                 <span>Jul 2024 - Present</span>
               </div>
               <ul>
